@@ -1,26 +1,31 @@
 #include "Player.h"
-#include <iostream> 
 
-void Player:: moveLeft(RectangleShape& rect) {
-        Vector2f position = rect.getPosition();
+Player::Player() {
+    defaultPlayer.setSize(Vector2f(40.f,80.f));
+    defaultPlayer.setFillColor(Color::Blue);
+    defaultPlayer.setPosition(Vector2f(250,720));
+}
+
+void Player:: moveLeft(RectangleShape& player) {
+        Vector2f position = player.getPosition();
         position.x = position.x-15;
-        rect.setPosition(position);
+        player.setPosition(position);
     }
 
-void Player::moveRight(RectangleShape& rect) {
-        Vector2f position = rect.getPosition();
+void Player::moveRight(RectangleShape& player) {
+        Vector2f position = player.getPosition();
         position.x = position.x+15;
-        rect.setPosition(position);
+        player.setPosition(position);
     }
 
 
-void Player::jump(RectangleShape& rect, float& velocity, float FPS) {
-     Vector2f position = rect.getPosition();
-    int x = position.x;
-    int y = position.y;
+void Player::jump(RectangleShape& player, float& velocity, float FPS) {
+    Vector2f position = player.getPosition();
+    int jumpX = position.x;
+    int jumpY = position.y;
 
     velocity += 0.2; // gravity affect -> character falling
-    y += velocity * (120*(FPS)); // change character y position according to velocity * (desired FPS / current FPS = delta time)
+    jumpY += velocity * (120*(FPS)); // change character y position according to velocity * (desired FPS / current FPS = delta time)
             
 
     // If character touches the ground (Edit to apply for platforms)
@@ -28,13 +33,11 @@ void Player::jump(RectangleShape& rect, float& velocity, float FPS) {
         velocity = -10; // Jumping 
     }
 
-    rect.setPosition(x,y); // redefine character position
+    player.setPosition(jumpX,jumpY); // redefine character position
 }
+
 void Player::render() {
         RenderWindow window(VideoMode(500, 800), "Doodle Jump");
-        RectangleShape rectangle(Vector2f(40.f,80.f));
-        rectangle.setFillColor(Color::Blue);
-        rectangle.setPosition(Vector2f(250,720));
 
         // Limit framerate to 120
         window.setFramerateLimit(120);
@@ -47,6 +50,10 @@ void Player::render() {
    
         while (window.isOpen())
         {
+            // Define player
+            Player();
+
+            // Calculate time between each frame in seconds
             Time elapsed = clock.restart();
             float timeBetweenFrames = elapsed.asSeconds();
             
@@ -59,27 +66,27 @@ void Player::render() {
 
                 // Move left
                 if (Keyboard::isKeyPressed(Keyboard::Left)) {
-                    moveLeft(rectangle);
+                    moveLeft(defaultPlayer);
 
                 // Move right
                 } else if (Keyboard::isKeyPressed(Keyboard::Right)) {
-                    moveRight(rectangle);
+                    moveRight(defaultPlayer);
                 }
 
                 // Player reappear from other side of screen if moved out of range
-                if (rectangle.getPosition().x >= 500) {
-                    rectangle.setPosition(0,rectangle.getPosition().y);
-                } else if (rectangle.getPosition().x <= 0) { 
-                    rectangle.setPosition(500,rectangle.getPosition().y);
+                if (defaultPlayer.getPosition().x >= 500) {
+                    defaultPlayer.setPosition(0,defaultPlayer.getPosition().y);
+                } else if (defaultPlayer.getPosition().x <= 0) { 
+                    defaultPlayer.setPosition(500,defaultPlayer.getPosition().y);
                 }          
             }
 
             // Jumping 
-            jump(rectangle,velocity,timeBetweenFrames);
+            jump(defaultPlayer,velocity,timeBetweenFrames);
 
 
             window.clear();
-            window.draw(rectangle);
+            window.draw(defaultPlayer);
             window.display();
         }
     }
