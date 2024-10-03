@@ -1,36 +1,24 @@
-# Makefile
-
-# Compiler
-
-CXX = g++
-
-# Compiler flags
-
-CXXFLAGS = -lsfml-graphics -lsfml-window -lsfml-system
-# -std=c++11 -Wall -Wextra 
-
-# Executable name
-
+# output file name
 TARGET = game
 
-# Source files
+# source files
+SOURCES = main.cpp Player.cpp #inGame.cpp
 
-SRCS = main.cpp
+UNAME_S := $(shell uname -s)
 
-# Build and run tests
+# OS specific config
+ifeq ($(UNAME_S), Darwin)  # mac
+    SFML_LIBS = -L/opt/homebrew/lib -I/opt/homebrew/include -lsfml-graphics -lsfml-window -lsfml-system
+else ifeq ($(UNAME_S), Linux)  # linux
+    SFML_LIBS = -lsfml-graphics -lsfml-window -lsfml-system
+endif
 
-.PHONY: all
 
-all:
+# build executable and run exectuable
+$(TARGET): $(SOURCES)
+	g++ -std=c++11 $(SOURCES) $(SFML_LIBS) -o $(TARGET).out
+	./$(TARGET).out 
 
-	$(CXX) $(SRCS) $(CXXFLAGS) -o $(TARGET) 
-
-	./$(TARGET)
-
-# Clean rule
-
-.PHONY: clean
-
+# clean workspace
 clean:
-
-	rm -f $(TARGET)
+	rm -f *.out *.o
