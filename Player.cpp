@@ -48,14 +48,24 @@ void Player::render() {
                 if (event.type == Event::Closed)
                     window.close();
 
+                // Move left
                 if (Keyboard::isKeyPressed(Keyboard::Left)) {
                     moveLeft(rectangle);
+
+                // Move right
                 } else if (Keyboard::isKeyPressed(Keyboard::Right)) {
                     moveRight(rectangle);
                 }
-           
+
+                // Player reappear from other side of screen if moved out of range
+                if (rectangle.getPosition().x >= 500) {
+                    rectangle.setPosition(0,rectangle.getPosition().y);
+                } else if (rectangle.getPosition().x <= 0) { 
+                    rectangle.setPosition(500,rectangle.getPosition().y);
+                }          
             }
-            
+
+            // Jumping 
             jump(rectangle,velocity);
 
             window.clear();
