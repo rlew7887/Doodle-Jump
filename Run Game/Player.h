@@ -6,8 +6,11 @@ using namespace sf;
 
 class Player {
   private:
+    RectangleShape defaultPlayer;
 
   public:  
+    Player();
+
     void moveLeft(RectangleShape& rect);
 
     void moveRight(RectangleShape& rect);
@@ -16,7 +19,8 @@ class Player {
 
     void render();
 
-    
+    ~Player() {}
+
 };
 
 #endif
