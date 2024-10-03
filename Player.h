@@ -6,14 +6,13 @@ using namespace sf;
 
 class Player {
   private:
-    
 
   public:  
     void moveLeft(RectangleShape& rect);
 
     void moveRight(RectangleShape& rect);
 
-    void jump(RectangleShape& rect, float& velocity, float timeBetweemFrames);
+    void jump(RectangleShape& rect, float& velocity, float FPS);
 
     void render();
 
