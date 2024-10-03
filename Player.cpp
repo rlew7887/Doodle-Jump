@@ -13,7 +13,7 @@ void Player::moveRight(RectangleShape& rect) {
     }
 
 
-void Player::jump(RectangleShape& rect, float& velocity) {
+void Player::jump(RectangleShape& rect, float& velocity, float timeBetweemFrames) {
      Vector2f position = rect.getPosition();
     int x = position.x;
     int y = position.y;
@@ -39,9 +39,15 @@ void Player::render() {
 
         // Reset velocity to 0 
         float velocity = 0;
+
+        // Clock to measure elasped time between each frame
+        Clock clock;
    
         while (window.isOpen())
         {
+            Time elapsed = clock.restart(); // get time passed since the last frame
+            float timeBetweenFrames = elapsed.asSeconds(); // convert time to seconds
+
             Event event;
             while (window.pollEvent(event))
             {
@@ -66,7 +72,7 @@ void Player::render() {
             }
 
             // Jumping 
-            jump(rectangle,velocity);
+            jump(rectangle,velocity,timeBetweenFrames);
 
             window.clear();
             window.draw(rectangle);

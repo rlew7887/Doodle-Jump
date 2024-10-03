@@ -13,7 +13,7 @@ class Player {
 
     void moveRight(RectangleShape& rect);
 
-    void jump(RectangleShape& rect, float& velocity);
+    void jump(RectangleShape& rect, float& velocity, float timeBetweemFrames);
 
     void render();
 
