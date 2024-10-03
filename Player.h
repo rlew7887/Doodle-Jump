@@ -13,9 +13,11 @@ class Player {
 
     void moveRight(RectangleShape& rect);
 
-    void jump();
+    void jump(RectangleShape& rect, float& velocity);
 
     void render();
+
+    
 };
 
 #endif

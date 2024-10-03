@@ -13,8 +13,22 @@ void Player::moveRight(RectangleShape& rect) {
     }
 
 
-void Player::jump() {
+void Player::jump(RectangleShape& rect, float& velocity) {
+     Vector2f position = rect.getPosition();
+    int x = position.x;
+    int y = position.y;
+
+    velocity += 0.015; // gravity affect -> character falling
+    y += velocity; // change character y position according to velocity 
+            
+
+    // If character touches the ground (Edit to apply for platforms)
+    if (position.y >= 720) {
+        velocity = -2.5; // Jumping 
     }
+
+    rect.setPosition(x,y); // redefine character position
+}
 
 
 void Player::render() {
@@ -23,6 +37,9 @@ void Player::render() {
         rectangle.setFillColor(Color::Blue);
         rectangle.setPosition(Vector2f(250,720));
 
+        // Reset velocity to 0 
+        float velocity = 0;
+   
         while (window.isOpen())
         {
             Event event;
@@ -36,8 +53,10 @@ void Player::render() {
                 } else if (Keyboard::isKeyPressed(Keyboard::Right)) {
                     moveRight(rectangle);
                 }
-
+           
             }
+            
+            jump(rectangle,velocity);
 
             window.clear();
             window.draw(rectangle);
