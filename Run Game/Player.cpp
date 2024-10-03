@@ -65,11 +65,11 @@ void Player::render() {
                     window.close();
 
                 // Move left
-                if (Keyboard::isKeyPressed(Keyboard::Left)) {
+                if (Keyboard::isKeyPressed(Keyboard::Left) || Keyboard::isKeyPressed(Keyboard::A)) {
                     moveLeft(defaultPlayer);
 
                 // Move right
-                } else if (Keyboard::isKeyPressed(Keyboard::Right)) {
+                } else if (Keyboard::isKeyPressed(Keyboard::Right) || Keyboard::isKeyPressed(Keyboard::D)) {
                     moveRight(defaultPlayer);
                 }
 
