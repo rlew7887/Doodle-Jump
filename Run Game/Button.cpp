@@ -31,7 +31,7 @@ Button::Button(float positionX, float positionY, float width, float height, Font
     this->shape.setFillColor(this->idleColour);
 
     shape.setOutlineThickness(3);
-    shape.setOutlineColor(sf::Color::Black);
+    shape.setOutlineColor(Color::Black);
 }
 
 void Button::render(RenderTarget* target) {

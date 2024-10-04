@@ -20,8 +20,8 @@ void Home::displayGraphics() {
         title.setFont(this->font); // set font
         title.setString("Doodle Jump"); // set the string to display
         title.setCharacterSize(100); // set the character size
-        title.setFillColor(sf::Color::Black); // set the color
-        title.setStyle(sf::Text::Bold); // set the text style
+        title.setFillColor(Color::Black); // set the color
+        title.setStyle(Text::Bold); // set the text style
         title.setPosition(230,30);
 
 
@@ -62,7 +62,7 @@ void Home::displayGraphics() {
         showTutorialBTN->updateButton(Vector2f(Mouse::getPosition(window).x, Mouse::getPosition(window).y));
 
         // clear the window with black color
-        window.clear(sf::Color::White);
+        window.clear(Color::Black);
         
         window.draw(background);
         window.draw(title);
