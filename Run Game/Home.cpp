@@ -4,7 +4,7 @@
 Home::Home() {}
 
 void Home::displayGraphics() {
-    // create the window
+    // Create the window
     RenderWindow window(VideoMode(800, 600), "Doodle Jump Home Screen");
 
     // Make title
@@ -14,6 +14,7 @@ void Home::displayGraphics() {
         {
             std::cout << "File failed to load" << std::endl;
         }
+
         Text title;
         title.setFont(titleFont); // set font
         title.setString("Doodle Jump"); // set the string to display
@@ -23,6 +24,22 @@ void Home::displayGraphics() {
         title.setPosition(230,30);
 
 
+
+    // Make background 
+        Texture homeBackground;
+        homeBackground.loadFromFile("grid-bg.jpg"); // Load file
+        if (!homeBackground.loadFromFile("grid-bg.jpg")) {
+            std::cout << "Texture file failed to load" << std::endl;
+        }
+
+        Sprite background(homeBackground);
+        Vector2u windowSize = window.getSize(); //get window size
+        Vector2u textureSize = homeBackground.getSize(); //get image size
+        //Calculate scale factors to make image fit to window
+        float scaleX = (1.0f * windowSize.x) / textureSize.x;
+        float scaleY = (1.0f * windowSize.y) / textureSize.y;
+        background.setScale(scaleX, scaleY); //scale the sprite
+        
     while (window.isOpen())
     {
         Event event;
@@ -36,6 +53,7 @@ void Home::displayGraphics() {
         // clear the window with black color
         window.clear(sf::Color::White);
         
+        window.draw(background);
         window.draw(title);
 
         // end the current frame
