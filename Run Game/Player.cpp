@@ -6,15 +6,15 @@ Player::Player() {
     defaultPlayer.setPosition(Vector2f(250,720));
 }
 
-void Player:: moveLeft(RectangleShape& player) {
+void Player:: moveLeft(RectangleShape& player, float FPS) {
         Vector2f position = player.getPosition();
-        position.x = position.x-15;
+        position.x -= 15*(120*(FPS));
         player.setPosition(position);
     }
 
-void Player::moveRight(RectangleShape& player) {
+void Player::moveRight(RectangleShape& player, float FPS) {
         Vector2f position = player.getPosition();
-        position.x = position.x+15;
+        position.x += 15*(120*(FPS));
         player.setPosition(position);
     }
 
@@ -66,11 +66,11 @@ void Player::render() {
 
                 // Move left
                 if (Keyboard::isKeyPressed(Keyboard::Left) || Keyboard::isKeyPressed(Keyboard::A)) {
-                    moveLeft(defaultPlayer);
+                    moveLeft(defaultPlayer,timeBetweenFrames);
 
                 // Move right
                 } else if (Keyboard::isKeyPressed(Keyboard::Right) || Keyboard::isKeyPressed(Keyboard::D)) {
-                    moveRight(defaultPlayer);
+                    moveRight(defaultPlayer,timeBetweenFrames);
                 }
 
                 // Player reappear from other side of screen if moved out of range

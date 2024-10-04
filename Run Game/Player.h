@@ -11,11 +11,11 @@ class Player {
   public:  
     Player();
 
-    void moveLeft(RectangleShape& rect);
+    void moveLeft(RectangleShape& player, float FPS);
 
-    void moveRight(RectangleShape& rect);
+    void moveRight(RectangleShape& player, float FPS);
 
-    void jump(RectangleShape& rect, float& velocity, float FPS);
+    void jump(RectangleShape& player, float& velocity, float FPS);
 
     void render();
 
