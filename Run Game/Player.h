@@ -38,7 +38,6 @@ class Player {
   public:  
     Player();
 
-    // Update the function signatures to accept FPS as a parameter
     void moveLeft(float FPS);
 
     void moveRight(float FPS);
