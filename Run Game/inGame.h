@@ -7,10 +7,11 @@ using namespace sf;
 
 class inGame {
   protected:
-    Player player;
+    //Player player;
     int score;
 
   public:  
+    inGame();
     void render();
     void gameOver();
     void countScore();
