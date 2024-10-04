@@ -1,3 +1,30 @@
+// #ifndef PLAYER_H
+// #define PLAYER_H
+// #include <SFML/Graphics.hpp>
+
+// using namespace sf;
+
+// class Player {
+//   private:
+//     RectangleShape defaultPlayer;
+
+//   public:  
+//     Player();
+
+//     void moveLeft(RectangleShape& rect);
+
+//     void moveRight(RectangleShape& rect);
+
+//     void jump(RectangleShape& rect, float& velocity, float FPS);
+
+//     void render();
+
+//     ~Player() {}
+
+// };
+
+// #endif
+
 #ifndef PLAYER_H
 #define PLAYER_H
 #include <SFML/Graphics.hpp>
@@ -11,11 +38,12 @@ class Player {
   public:  
     Player();
 
-    void moveLeft(RectangleShape& player, float FPS);
+    // Update the function signatures to accept deltaTime as a parameter
+    void moveLeft(float deltaTime);
 
-    void moveRight(RectangleShape& player, float FPS);
+    void moveRight(float deltaTime);
 
-    void jump(RectangleShape& player, float& velocity, float FPS);
+    void jump(float& velocity, float deltaTime);
 
     void render();
 
