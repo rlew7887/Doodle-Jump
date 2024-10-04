@@ -7,21 +7,30 @@ using namespace sf;
 
 class Platform {
 private:
-    RectangleShape shape; // Shape representing the platform
+    RectangleShape platformShape;   // shape of the platform
+    Texture platformTexture;        // texture for the platform
+    bool isBroken;                  // to differentiate between normal and broken platforms
+    Vector2f position;              // position of the platform
 
 public:
-    // Constructor to initialize platform with size and position
-    Platform(float width, float height, float posX, float posY);
+    Platform(float x, float y, bool broken = false);
 
-    // Function to render the platform
-    void render(RenderWindow& window);
+    // move platform horizontally (for moving platforms)
+    void moveHorizontal(float speed);
 
-    // Get the position of the platform
+    // render the platform to the window
+    void render(RenderWindow &window);
+
+    // get platform position
     Vector2f getPosition() const;
 
-    // Get the size of the platform
-    Vector2f getSize() const;
-};
+    //check if the platform is broken
+    bool checkIfBroken() const;
 
+    //set platform texture
+    void setPlatformTexture(const std::string& textureFile);
+
+    ~Platform() {}
+};
 
 #endif
