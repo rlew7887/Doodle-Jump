@@ -38,12 +38,12 @@ class Player {
   public:  
     Player();
 
-    // Update the function signatures to accept deltaTime as a parameter
-    void moveLeft(float deltaTime);
+    // Update the function signatures to accept FPS as a parameter
+    void moveLeft(float FPS);
 
-    void moveRight(float deltaTime);
+    void moveRight(float FPS);
 
-    void jump(float& velocity, float deltaTime);
+    void jump(float& velocity, float FPS);
 
     void render();
 
