@@ -8,10 +8,12 @@ class PowerUps {
         bool isActive;
 
     public:
+        PowerUps();
         virtual void applyEffect();
         void render();
         void deactivate();
         void randomizePowerUp();
+        virtual ~PowerUps();
 };
 
 #endif
