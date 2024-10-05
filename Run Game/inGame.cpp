@@ -22,15 +22,15 @@ int inGame::getScore(){
 }
 
 void inGame::playAgain(){
-    this->playAgainBTN = new Button(300,180,90,40,this->font,"Play Again",Color(199,214,255,200),Color(135,147,176,255),Color(98,115,140,200));
+    this->playAgainBTN = new Button(170,280,90,40,this->font,"Play Again",Color(199,214,255,200),Color(135,147,176,255),Color(98,115,140,200));
 }
 
 void inGame::home(){
-    this->homeBTN = new Button(300,300,90,40,this->font,"Home",Color(199,214,255,200),Color(135,147,176,255),Color(98,115,140,200));
+    this->homeBTN = new Button(170,400,90,40,this->font,"Home",Color(199,214,255,200),Color(135,147,176,255),Color(98,115,140,200));
 }
 
 void inGame::Leaderboard(){
-    this->LeaderboardBTN = new Button(300,300,90,40,this->font,"Leader Board",Color(199,214,255,200),Color(135,147,176,255),Color(98,115,140,200));
+    this->LeaderboardBTN = new Button(170,520,90,40,this->font,"Leader Board",Color(199,214,255,200),Color(135,147,176,255),Color(98,115,140,200));
 }
 
 void inGame::gameOver(){
@@ -53,11 +53,11 @@ void inGame::gameOver(){
 
     Text title;
     title.setFont(this->font); //set font
-    title.setString("Game Over"); //set the string to display
+    title.setString("Game Over!"); //set the string to display
     title.setCharacterSize(100); //set the character size
     title.setFillColor(Color::Black); //set the color
     title.setStyle(Text::Bold); //set the text style
-    title.setPosition(230,30);
+    title.setPosition(120,120);
 
     //Initialise buttons
     playAgain();
