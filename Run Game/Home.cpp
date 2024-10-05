@@ -12,8 +12,16 @@ Home::Home() {
 }
 
 void Home::displayGraphics() {
-    // Create the window
-    RenderWindow window(VideoMode(800, 600), "Doodle Jump Home Screen");
+    // Get the device screen size
+    VideoMode desktop = VideoMode::getDesktopMode();
+
+    // Create the window in the center of the screen
+    RenderWindow window(VideoMode(800, 600), "Doodle Jump Home");
+
+    // Calculate the center position
+    int windowPosX = (desktop.width - 800) / 2;
+    int windowPosY = (desktop.height - 600) / 2;
+    window.setPosition(Vector2i(windowPosX, windowPosY));
 
     // Make title
         Text title;
