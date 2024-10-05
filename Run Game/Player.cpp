@@ -53,8 +53,17 @@ void Player::jump(float& velocity, float FPS) {
 }
 
 void Player::render() {
-    // Create window for the game
+    // Get the device screen size
+    VideoMode desktop = VideoMode::getDesktopMode();
+
+    // Create the window for the game in the center of the screen
     RenderWindow window(VideoMode(500, 800), "Doodle Jump");
+
+    // Calculate the center position
+    int windowPosX = (desktop.width - 500) / 2;
+    int windowPosY = (desktop.height - 800) / 2;
+    window.setPosition(Vector2i(windowPosX, windowPosY));
+    
     sf::Texture background;
     background.loadFromFile("grid-bg.jpg");
     sf::Sprite bg(background);

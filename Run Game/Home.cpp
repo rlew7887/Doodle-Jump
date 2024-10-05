@@ -57,6 +57,9 @@ void Home::displayGraphics() {
         // Initialise tutorial popup
         bool showPopup = false;
 
+        // Initialise a new game
+        newGame = new Player();
+
     while (window.isOpen())
     {
         Event event;
@@ -76,6 +79,12 @@ void Home::displayGraphics() {
         // Set showPopup to true if tutorial button is pressed
         if (showTutorialBTN->getButtonState() == true) {
             showPopup = true;
+        }
+
+        // Transition to game page when start game button is pressed
+        if (startGameBTN->getButtonState() == true) {
+            window.close();
+            newGame->render();
         }
         
         // clear the window with black color
@@ -143,5 +152,6 @@ Home::~Home() {
     delete startGameBTN;
     delete showTutorialBTN;
     delete showLeaderBoardBTN;
+    delete newGame;
 }
 
