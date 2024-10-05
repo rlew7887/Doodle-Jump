@@ -1,10 +1,21 @@
 #include "Player.h"
+#include <iostream>
 
 Player::Player() {
     // Initialize the player with size, color, and position
-    defaultPlayer.setSize(Vector2f(40.f, 80.f));
-    defaultPlayer.setFillColor(Color::Blue);
-    defaultPlayer.setPosition(Vector2f(250, 720));
+    // defaultPlayer.setSize(Vector2f(40.f, 80.f));
+    // defaultPlayer.setFillColor(Color::Blue);
+    // defaultPlayer.setPosition(Vector2f(250, 720));
+    if (!sharkPlayer.loadFromFile("sharkPlayer.png")){
+        std::cout << "Failed to load" << std::endl; //Check whether image has loaded
+    }
+    defaultPlayer.setTexture(sharkPlayer);
+    defaultPlayer.setPosition(Vector2f(250, 720)); //Initialize location to prevent glitching
+    sharkPlayer.setSmooth(true); //smooths the outline
+    sf::Vector2u textureSize = sharkPlayer.getSize();  //Get the original texture size
+    float scaleX = 100.0f / textureSize.x;  //Calculate scale factor for width
+    float scaleY = 100.0f / textureSize.y;  //Calculate scale factor for height
+    defaultPlayer.setScale(scaleX, scaleY);  //Apply the scale to resize the sprite
 }
 
 void Player::moveLeft(float FPS) {
@@ -44,6 +55,15 @@ void Player::jump(float& velocity, float FPS) {
 void Player::render() {
     // Create window for the game
     RenderWindow window(VideoMode(500, 800), "Doodle Jump");
+    sf::Texture background;
+    background.loadFromFile("grid-bg.jpg");
+    sf::Sprite bg(background);
+    sf::Vector2u windowSize = window.getSize(); //get window size
+    sf::Vector2u textureSize = background.getSize(); //get image size
+    //Calculate scale factors to make image fit to window
+    float scaleX = (1.0f * windowSize.x) / textureSize.x;
+    float scaleY = (1.0f * windowSize.y) / textureSize.y;
+    bg.setScale(scaleX, scaleY); //scale the sprite
 
     // Limit framerate to 120 FPS
     window.setFramerateLimit(120);
@@ -86,6 +106,7 @@ void Player::render() {
 
         // Render the player
         window.clear();
+        window.draw(bg);
         window.draw(defaultPlayer);
         window.display();
     }

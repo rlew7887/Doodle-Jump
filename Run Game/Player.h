@@ -6,7 +6,9 @@ using namespace sf;
 
 class Player {
   private:
-    RectangleShape defaultPlayer;
+    //RectangleShape defaultPlayer;
+    sf::Sprite defaultPlayer;
+    sf::Texture sharkPlayer;
 
   public:  
     Player();
