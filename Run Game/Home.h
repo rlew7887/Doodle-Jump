@@ -10,6 +10,10 @@ class Home {
         Button* startGameBTN;
         Button* showTutorialBTN;
         Button* showLeaderBoardBTN;
+
+        RectangleShape tutorialPopup;
+        Text tutorialText;
+        
         Font font;
     
     public:

@@ -46,6 +46,9 @@ void Home::displayGraphics() {
         showLeaderBoard();
         showTutorial();
 
+        // Initialise tutorial popup
+        bool showPopup = false;
+
     while (window.isOpen())
     {
         Event event;
@@ -57,10 +60,16 @@ void Home::displayGraphics() {
         }
 
         // Update button state according to mouse position
-        startGameBTN->updateButton(Vector2f(Mouse::getPosition(window).x, Mouse::getPosition(window).y));
-        showLeaderBoardBTN->updateButton(Vector2f(Mouse::getPosition(window).x, Mouse::getPosition(window).y));
-        showTutorialBTN->updateButton(Vector2f(Mouse::getPosition(window).x, Mouse::getPosition(window).y));
+        Vector2f mousePos = window.mapPixelToCoords(Mouse::getPosition(window));
+        startGameBTN->updateButton(mousePos);
+        showLeaderBoardBTN->updateButton(mousePos);
+        showTutorialBTN->updateButton(mousePos);
 
+        // Set showPopup to true if tutorial button is pressed
+        if (showTutorialBTN->getButtonState() == true) {
+            showPopup = true;
+        }
+        
         // clear the window with black color
         window.clear(Color::Black);
         
@@ -71,6 +80,17 @@ void Home::displayGraphics() {
         startGameBTN->render(&window);
         showLeaderBoardBTN->render(&window);
         showTutorialBTN->render(&window);
+
+        // Draw tutorial popup
+        if (showPopup == true) {
+            window.draw(tutorialPopup);
+            window.draw(tutorialText);
+
+            // Quit the popup if 'x' is pressed
+            if (Keyboard::isKeyPressed(Keyboard::X)) {
+            showPopup = false;
+            }
+        }
 
         // end the current frame
         window.display();
@@ -89,6 +109,26 @@ void Home::showLeaderBoard() {
 
 void Home::showTutorial() {
     this->showTutorialBTN = new Button(300,420,90,40,this->font,"Tutorial",Color(199,214,255,200),Color(135,147,176,255),Color(98,115,140,200));
+    
+    // Tutorial popup box
+    tutorialPopup.setSize(Vector2f(500,300));
+    tutorialPopup.setFillColor(Color::White);
+    tutorialPopup.setPosition(Vector2f(150,180));
+    tutorialPopup.setOutlineThickness(2);
+    tutorialPopup.setOutlineColor(Color::Black);
+
+    // Set popup text
+    tutorialText.setFont(this->font); 
+    tutorialText.setString("\n                                     Tutorial \n Controls: Left and right arrow keys to move the character \n \n Progress through the game by jumping on the \n platforms. Collect power up tools \n by landing on them and avoid the monsters! \n \n (Press X to exit)");
+    tutorialText.setFillColor(Color::Black);
+    tutorialText.setCharacterSize(30);
+
+    // Set popup text position to middle of popup screen
+    tutorialText.setPosition(
+        this->tutorialPopup.getPosition().x + (this->tutorialPopup.getSize().x * this->tutorialPopup.getScale().x) / 2.0f - (tutorialText.getGlobalBounds().width / 2.0f),
+        this->tutorialPopup.getPosition().y + (this->tutorialPopup.getSize().y * this->tutorialPopup.getScale().y) / 2.0f - (tutorialText.getGlobalBounds().height / 2.0f) - (tutorialText.getGlobalBounds().height * 0.15f)
+    );
+
 }
 
 Home::~Home() {
