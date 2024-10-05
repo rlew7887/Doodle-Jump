@@ -6,7 +6,7 @@
 
 using namespace sf;
 
-class inGame {
+class inGame { //rename to GameOver class?
   protected:
     //Player player;
     int score;
@@ -21,7 +21,7 @@ class inGame {
     void playAgain();
     void home();
     void Leaderboard();
-    void gameOver();
+    //void gameOver();
     void render();
     ~inGame(); //destructor
 };

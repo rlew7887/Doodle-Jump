@@ -23,6 +23,7 @@ class Button {
         void render(RenderTarget* target);
         void updateButton(Vector2f(mousePosition));
         const bool getButtonState();
+        bool isMouseOver(Vector2f mousePos);
         ~Button();
 };
 

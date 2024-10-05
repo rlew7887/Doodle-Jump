@@ -1,4 +1,5 @@
 #include "inGame.h"
+#include "Home.h"
 #include <iostream>
 
 inGame::inGame():score(score){
@@ -33,7 +34,7 @@ void inGame::Leaderboard(){
     this->LeaderboardBTN = new Button(170,520,90,40,this->font,"Leader Board",Color(199,214,255,200),Color(135,147,176,255),Color(98,115,140,200));
 }
 
-void inGame::gameOver(){
+void inGame::render(){
     RenderWindow window(VideoMode(500, 800), "Game Over");
     sf::Texture background;
     background.loadFromFile("grid-bg.jpg");
@@ -76,6 +77,27 @@ void inGame::gameOver(){
         homeBTN->updateButton(Vector2f(Mouse::getPosition(window).x, Mouse::getPosition(window).y));
         LeaderboardBTN->updateButton(Vector2f(Mouse::getPosition(window).x, Mouse::getPosition(window).y));
 
+        //Check if left mouse button is pressed
+        if (event.type == sf::Event::MouseButtonPressed && event.mouseButton.button == sf::Mouse::Left) {
+                if (playAgainBTN->isMouseOver(Vector2f(Mouse::getPosition(window).x, Mouse::getPosition(window).y))) {
+                    //when play again button is pressed, render a new game
+                    window.close();
+                    Player newGame;
+                    newGame.render();
+                }
+                if (homeBTN->isMouseOver(Vector2f(Mouse::getPosition(window).x, Mouse::getPosition(window).y))) {
+                    //when home button is pressed, render homescreen
+                    window.close();
+                    Home home;
+                    home.displayGraphics();
+                }
+                if (LeaderboardBTN->isMouseOver(Vector2f(Mouse::getPosition(window).x, Mouse::getPosition(window).y))) {
+                    //when leaderboard button is pressed, render leaderboard
+                    window.close();
+                    // Add code for showing leaderboard here
+                }
+            }
+
         window.clear();
         window.draw(bg); //draw background image
         window.draw(title);
@@ -88,34 +110,34 @@ void inGame::gameOver(){
     }
 }
 
-void inGame::render(){
-    RenderWindow window(VideoMode(500, 800), "Doodle Jump");
-    sf::Texture t;
-    t.loadFromFile("grid-bg.jpg");
-    sf::Sprite s(t);
-    sf::Vector2u windowSize = window.getSize(); //get window size
-    sf::Vector2u textureSize = t.getSize(); //get image size
-    //Calculate scale factors to make image fit to window
-    float scaleX = (1.0f * windowSize.x) / textureSize.x;
-    float scaleY = (1.0f * windowSize.y) / textureSize.y;
-    s.setScale(scaleX, scaleY); //scale the sprite
-    // Player player;
-    // player.render(); This function in player.cpp will be changed to just render a rectangle/character that can move left/right
-    while (window.isOpen()){
-        Event event;
-        while (window.pollEvent(event)){
-                if (event.type == Event::Closed)
-                    window.close();
-        }
-        window.clear();
-        window.draw(s);
-        window.display();
-    }
-    //Should know when to switch between levels 
-    //if (score > 500){
-    //  void render(level2)} ??
-    //render background and score only
-}
+// void inGame::render(){
+//     RenderWindow window(VideoMode(500, 800), "Doodle Jump");
+//     sf::Texture t;
+//     t.loadFromFile("grid-bg.jpg");
+//     sf::Sprite s(t);
+//     sf::Vector2u windowSize = window.getSize(); //get window size
+//     sf::Vector2u textureSize = t.getSize(); //get image size
+//     //Calculate scale factors to make image fit to window
+//     float scaleX = (1.0f * windowSize.x) / textureSize.x;
+//     float scaleY = (1.0f * windowSize.y) / textureSize.y;
+//     s.setScale(scaleX, scaleY); //scale the sprite
+//     // Player player;
+//     // player.render(); This function in player.cpp will be changed to just render a rectangle/character that can move left/right
+//     while (window.isOpen()){
+//         Event event;
+//         while (window.pollEvent(event)){
+//                 if (event.type == Event::Closed)
+//                     window.close();
+//         }
+//         window.clear();
+//         window.draw(s);
+//         window.display();
+//     }
+//     //Should know when to switch between levels 
+//     //if (score > 500){
+//     //  void render(level2)} ??
+//     //render background and score only
+// }
 
 inGame::~inGame(){
     delete playAgainBTN;

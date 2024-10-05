@@ -76,4 +76,9 @@ const bool Button::getButtonState() {
     return false;
 }
 
+bool Button::isMouseOver(Vector2f mousePos) {
+    FloatRect btnBounds = this->shape.getGlobalBounds(); //get the bounds of the button
+    return btnBounds.contains(mousePos); //checks if mouse is hovering over button and within button bounds
+}
+
 Button::~Button() {}
