@@ -97,7 +97,7 @@ void Player::render() {
         // Make the player reappear on the opposite side if they go off-screen
         if (defaultPlayer.getPosition().x >= 500) {
             defaultPlayer.setPosition(0, defaultPlayer.getPosition().y);
-        } else if (defaultPlayer.getPosition().x <= 0) {
+        } else if (defaultPlayer.getPosition().x <= -70) {
             defaultPlayer.setPosition(500, defaultPlayer.getPosition().y);
         }
 

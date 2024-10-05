@@ -1,14 +1,11 @@
 #include <SFML/Graphics.hpp>
 #include <iostream>
 #include "Player.h"
-#include "Home.h"
 
 int main()
 {
-    // Player test;
-    // test.render();
-    Home test;
-    test.displayGraphics();
+    Player test;
+    test.render();
 
     return 0;
 }
