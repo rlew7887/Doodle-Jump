@@ -2,7 +2,7 @@
 TARGET = game
 
 # source files
-SOURCES = main.cpp Player.cpp #inGame.cpp
+SOURCES = main.cpp Home.cpp Button.cpp Player.cpp
 
 UNAME_S := $(shell uname -s)
 
