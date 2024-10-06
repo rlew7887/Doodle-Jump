@@ -9,7 +9,6 @@ using namespace sf;
 
 class Player {
   private:
-    //RectangleShape defaultPlayer;
     sf::Sprite defaultPlayer;
     sf::Texture sharkPlayer;
     bool onPlatform;
