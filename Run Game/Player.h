@@ -4,6 +4,7 @@
 #include "Platform.h"
 #include "NormalPlat.h"
 #include "inGame.h"
+#include "Level1.h"
 
 using namespace sf;
 
@@ -26,7 +27,9 @@ class Player {
 
     void render();
 
-    ~Player() {};
+    bool getOnPlatform();
+
+    ~Player();
 
 };
 
