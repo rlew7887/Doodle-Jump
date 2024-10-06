@@ -35,7 +35,15 @@ void inGame::Leaderboard(){
 }
 
 void inGame::render(){
+    //Get device screen size
+    VideoMode desktop = VideoMode::getDesktopMode();
+    
     RenderWindow window(VideoMode(500, 800), "Game Over");
+    // Calculate the center position
+    int windowPosX = (desktop.width - 500) / 2;
+    int windowPosY = (desktop.height - 800) / 2;
+    window.setPosition(Vector2i(windowPosX, windowPosY));
+
     sf::Texture background;
     background.loadFromFile("grid-bg.jpg");
 
@@ -81,6 +89,7 @@ void inGame::render(){
         if (event.type == sf::Event::MouseButtonPressed && event.mouseButton.button == sf::Mouse::Left) {
                 if (playAgainBTN->isMouseOver(Vector2f(Mouse::getPosition(window).x, Mouse::getPosition(window).y))) {
                     //when play again button is pressed, render a new game
+                    //setPosition?
                     window.close();
                     Player newGame;
                     newGame.render();
