@@ -8,10 +8,10 @@ int main()
 {
     // Player test;
     // test.render();
-    // Home test;
-    // test.displayGraphics();
-    inGame test;
-    test.render();
+    Home test;
+    test.displayGraphics();
+    // inGame test;
+    // test.render();
 
     return 0;
 }
