@@ -2,15 +2,12 @@
 #include <iostream>
 
 Player::Player() {
-    // Initialize the player with size, color, and position
-    // defaultPlayer.setSize(Vector2f(40.f, 80.f));
-    // defaultPlayer.setFillColor(Color::Blue);
-    // defaultPlayer.setPosition(Vector2f(250, 720));
+    // Initialize the player 
     if (!sharkPlayer.loadFromFile("sharkPlayer.png")){
         std::cout << "Failed to load" << std::endl; //Check whether image has loaded
     }
     defaultPlayer.setTexture(sharkPlayer);
-    defaultPlayer.setPosition(Vector2f(250, 720)); //Initialize location to prevent glitching
+    defaultPlayer.setPosition(Vector2f(250, 700)); //Initialize location to prevent glitching
     sharkPlayer.setSmooth(true); //smooths the outline
     sf::Vector2u textureSize = sharkPlayer.getSize();  //Get the original texture size
     float scaleX = 100.0f / textureSize.x;  //Calculate scale factor for width
@@ -34,7 +31,10 @@ void Player::moveRight(float FPS) {
     defaultPlayer.setPosition(position);
 }
 
-void Player::jump(float& velocity, float FPS) {
+void Player::jump(float& velocity, float FPS, Platform& platform) {
+    // Initialise bool
+    onPlatform = false;
+
     // Get current position
     Vector2f position = defaultPlayer.getPosition();
     int jumpX = position.x;
@@ -42,12 +42,28 @@ void Player::jump(float& velocity, float FPS) {
 
     velocity += 0.2; // gravity affect -> character falling
     jumpY += velocity * (120*(FPS)); // change character y position according to velocity * (desired FPS / current FPS = delta time)
-            
 
-    // If character touches the ground (Edit to apply for platforms)
-    if (position.y >= 720) {
-        velocity = -10; // Jumping 
-    }
+    // Create bounding boxes for the player
+    FloatRect playerBounds = defaultPlayer.getGlobalBounds();
+    float playerBottom = playerBounds.top + playerBounds.height; // bottom bounds of the player
+
+    for (int i = 0; i < 20; i++) {
+        // Get top position of the current platform
+        float platformTop = platform.plat[i].y; 
+        // Get bottom position of the current platform
+        float platformBottom = platformTop + 20; 
+
+        // Check if the player's bottom is above the platform and if the player is falling
+        if (playerBottom >= platformTop && playerBottom <= platformBottom && velocity > 0) {
+            // Check if player position is within the width of the platforms
+            if ((defaultPlayer.getPosition().x >= platform.plat[i].x || defaultPlayer.getPosition().x+50 >= platform.plat[i].x) && (defaultPlayer.getPosition().x <= platform.plat[i].x+80 || defaultPlayer.getPosition().x+50 <= platform.plat[i].x+80)) {
+                // Player has landed on the platform
+                jumpY = platformTop - playerBounds.height; // Position the player on top of the platform
+                velocity = -10; // jumping
+                onPlatform = true;
+                }
+            } 
+        }
 
     defaultPlayer.setPosition(jumpX,jumpY); // redefine character position
 }
@@ -83,6 +99,9 @@ void Player::render() {
     // Create a clock to measure time between frames
     Clock clock;
 
+    // Initialise normal platform
+    NormalPlat normalPlatform;
+
     while (window.isOpen()) {
         // Time between each frame in seconds (delta time)
         Time elapsed = clock.restart();
@@ -110,13 +129,35 @@ void Player::render() {
             defaultPlayer.setPosition(500, defaultPlayer.getPosition().y);
         }
 
+        // When player falls out of screen
+        if (onPlatform == false && defaultPlayer.getPosition().y >= 720) {
+            window.close();
+            gameOver = new inGame;
+            gameOver->render();
+        }
+
+
+        // When the player reaches the middle of the window
+        if (defaultPlayer.getPosition().y <= window.getSize().y / 2) {
+            normalPlatform.shiftDown(2); // Shift all platforms down by 2 pixels
+        }
+
         // Jumping implementation
-        jump(velocity, deltaTime);
+        jump(velocity, deltaTime, normalPlatform);
+        
+        window.clear();
+
+        // Render the background
+        window.draw(bg);
+
+        // Render normal platform
+        normalPlatform.render(&window);
 
         // Render the player
-        window.clear();
-        window.draw(bg);
         window.draw(defaultPlayer);
+
         window.display();
     }
 }
+
+//Player::~Player() {delete gameOver;}

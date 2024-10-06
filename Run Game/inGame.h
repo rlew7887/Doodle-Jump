@@ -1,7 +1,6 @@
 #ifndef INGAME_H
 #define INGAME_H
 #include <SFML/Graphics.hpp>
-#include "Player.h"
 #include "Button.h"
 
 using namespace sf;
