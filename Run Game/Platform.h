@@ -11,12 +11,12 @@ class Platform {
         RectangleShape platform;
 
     public:
-        Point plat[20];
+        Point plat[11];
         Platform(); // Constructor
-        virtual void render(RenderWindow* target);
+        void render(RenderWindow* target);
         void shiftDown(float distance);
-        void generatePlatforms();
-        ~Platform() {}
+        virtual void generatePlatforms(int numToGenerate); // Modify the frequency of platforms being generated 
+        virtual ~Platform() {}
         
 };
 

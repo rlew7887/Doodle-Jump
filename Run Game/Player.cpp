@@ -56,7 +56,7 @@ void Player::jump(float& velocity, float FPS, Platform& platform) {
         // Check if the player's bottom is above the platform and if the player is falling
         if (playerBottom >= platformTop && playerBottom <= platformBottom && velocity > 0) {
             // Check if player position is within the width of the platforms
-            if ((defaultPlayer.getPosition().x >= platform.plat[i].x || defaultPlayer.getPosition().x+50 >= platform.plat[i].x) && (defaultPlayer.getPosition().x <= platform.plat[i].x+80 || defaultPlayer.getPosition().x+50 <= platform.plat[i].x+80)) {
+            if ((defaultPlayer.getPosition().x >= platform.plat[i].x || defaultPlayer.getPosition().x+55 >= platform.plat[i].x) && (defaultPlayer.getPosition().x <= platform.plat[i].x+80 || defaultPlayer.getPosition().x+55 <= platform.plat[i].x+80)) {
                 // Player has landed on the platform
                 jumpY = platformTop - playerBounds.height; // Position the player on top of the platform
                 velocity = -10; // jumping
@@ -71,15 +71,14 @@ void Player::jump(float& velocity, float FPS, Platform& platform) {
 void Player::render() {
     // Get the device screen size
     VideoMode desktop = VideoMode::getDesktopMode();
-
     // Create the window for the game in the center of the screen
     RenderWindow window(VideoMode(500, 800), "Doodle Jump");
-
-    // Calculate the center position
+    // Calculate the center position to set window
     int windowPosX = (desktop.width - 500) / 2;
     int windowPosY = (desktop.height - 800) / 2;
     window.setPosition(Vector2i(windowPosX, windowPosY));
     
+    // Create background
     sf::Texture background;
     background.loadFromFile("grid-bg.jpg");
     sf::Sprite bg(background);
@@ -93,14 +92,10 @@ void Player::render() {
     // Limit framerate to 120 FPS
     window.setFramerateLimit(120);
 
-    // Initialize velocity for jumping
-    float velocity = 0;
-
-    // Create a clock to measure time between frames
-    Clock clock;
-
-    // Initialise normal platform
-    NormalPlat normalPlatform;
+    float velocity = 0; // Initialize velocity for jumping
+    Clock clock; // Create a clock to measure time between frames
+    Level1 level1; // Initialise level1
+    NormalPlat normalPlatform; // Initialise platforms
 
     while (window.isOpen()) {
         // Time between each frame in seconds (delta time)
@@ -150,8 +145,8 @@ void Player::render() {
         // Render the background
         window.draw(bg);
 
-        // Render normal platform
-        normalPlatform.render(&window);
+        // Render level 1
+        level1.renderLevel1(&window,normalPlatform);
 
         // Render the player
         window.draw(defaultPlayer);
