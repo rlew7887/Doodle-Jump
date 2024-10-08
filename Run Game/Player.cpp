@@ -179,4 +179,8 @@ void Player::render() {
     }
 }
 
+
+Vector2f Player::getPosition() {
+    return defaultPlayer.getPosition();
+}
 //Player::~Player() {delete gameOver;}
