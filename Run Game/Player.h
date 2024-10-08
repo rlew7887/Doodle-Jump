@@ -3,7 +3,7 @@
 #include <SFML/Graphics.hpp>
 #include "Platform.h"
 #include "NormalPlat.h"
-#include "inGame.h"
+#include "gameOver.h"
 #include "Level1.h"
 
 using namespace sf;
@@ -15,7 +15,7 @@ class Player {
     bool onPlatform;
     Font font;
 
-    inGame* gameOver;
+    //gameOver gameOver;
 
   public:  
     Player();

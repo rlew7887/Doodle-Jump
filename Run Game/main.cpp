@@ -2,7 +2,7 @@
 #include <iostream>
 #include "Player.h"
 #include "Home.h"
-#include "inGame.h"
+#include "gameOver.h"
 
 int main()
 {

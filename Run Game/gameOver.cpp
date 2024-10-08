@@ -148,7 +148,7 @@ void gameOver::render(){
 //     //render background and score only
 // }
 
-inGame::~inGame(){
+gameOver::~gameOver(){
     delete playAgainBTN;
     delete homeBTN;
     delete LeaderboardBTN;

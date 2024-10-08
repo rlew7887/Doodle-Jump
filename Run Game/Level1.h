@@ -4,7 +4,7 @@
 #include "Platform.h"
 #include "NormalPlat.h"
 #include "Player.h"
-#include "inGame.h"
+#include "gameOver.h"
 
 class Level1 {
     private:
