@@ -13,6 +13,12 @@ Player::Player() {
     float scaleX = 100.0f / textureSize.x;  //Calculate scale factor for width
     float scaleY = 100.0f / textureSize.y;  //Calculate scale factor for height
     defaultPlayer.setScale(scaleX, scaleY);  //Apply the scale to resize the sprite
+
+    // Check if successfully loaded
+    if (!font.loadFromFile("./SkeletonFont.ttf"))
+    {
+            std::cout << "File failed to load" << std::endl;
+    }
 }
 
 void Player::moveLeft(float FPS) {
@@ -89,6 +95,14 @@ void Player::render() {
     float scaleY = (1.0f * windowSize.y) / textureSize.y;
     bg.setScale(scaleX, scaleY); //scale the sprite
 
+    Text score; 
+    score.setFont(this->font);
+    int score1 = 0;
+    score.setCharacterSize(30);
+    score.setFillColor(Color::Black);
+    score.setStyle(Text::Bold);
+    score.setPosition(430, 10);
+
     // Limit framerate to 120 FPS
     window.setFramerateLimit(120);
 
@@ -101,6 +115,9 @@ void Player::render() {
         // Time between each frame in seconds (delta time)
         Time elapsed = clock.restart();
         float deltaTime = elapsed.asSeconds();
+
+        score1++;
+        score.setString(std::to_string(score1));
 
         Event event;
         while (window.pollEvent(event)) {
@@ -147,6 +164,9 @@ void Player::render() {
 
         // Render level 1
         level1.renderLevel1(&window);
+
+        //Render the score
+        window.draw(score);
 
         // Render the player
         window.draw(defaultPlayer);

@@ -100,4 +100,6 @@ void HighScore::displayTopScores(){ //still need to add a table to display score
     }
 }
 
-HighScore::~HighScore(){}
+HighScore::~HighScore(){
+    delete[] highScores;
+}
