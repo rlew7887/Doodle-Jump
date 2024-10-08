@@ -8,12 +8,17 @@
 
 class Level1 {
     private:
-        inGame* gameOver;
+        NormalPlat* normalP;
+        // BrokenPlat* brokenP;
+        // Boots* boot;
 
     public:
         Level1();
-        void setupLevel(RenderWindow* window, Sprite& player);
-        void renderLevel1(RenderWindow* window, NormalPlat normal);
+        void setupLevel();
+        void renderLevel1(RenderWindow* window);
+        NormalPlat* get_NormalPlat();
+        // get_BrokenPlat();
+        // get_Boots();
         ~Level1();
 };
 

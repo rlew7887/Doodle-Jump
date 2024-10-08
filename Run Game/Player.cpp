@@ -95,7 +95,7 @@ void Player::render() {
     float velocity = 0; // Initialize velocity for jumping
     Clock clock; // Create a clock to measure time between frames
     Level1 level1; // Initialise level1
-    NormalPlat normalPlatform; // Initialise platforms
+    level1.setupLevel(); // Setup level1
 
     while (window.isOpen()) {
         // Time between each frame in seconds (delta time)
@@ -134,11 +134,11 @@ void Player::render() {
 
         // When the player reaches the middle of the window
         if (defaultPlayer.getPosition().y <= window.getSize().y / 2) {
-            normalPlatform.shiftDown(2); // Shift all platforms down by 2 pixels
+            level1.get_NormalPlat()->shiftDown(2); // Shift all platforms down by 2 pixels
         }
 
         // Jumping implementation
-        jump(velocity, deltaTime, normalPlatform);
+        jump(velocity, deltaTime, *level1.get_NormalPlat()); // for level1 normal platform
         
         window.clear();
 
@@ -146,7 +146,7 @@ void Player::render() {
         window.draw(bg);
 
         // Render level 1
-        level1.renderLevel1(&window,normalPlatform);
+        level1.renderLevel1(&window);
 
         // Render the player
         window.draw(defaultPlayer);

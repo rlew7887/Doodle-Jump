@@ -1,14 +1,28 @@
 #include "Level1.h"
 
-Level1::Level1() {};
-void Level1::setupLevel(RenderWindow* window, Sprite& player) {
+Level1::Level1() : normalP(nullptr) {};
 
+void Level1::setupLevel() {
+    // Initialise platforms
+    normalP = new NormalPlat;
+    // brokenP = new BrokenPlat;
+    // boot = new Boots;
 }
 
-void Level1::renderLevel1(RenderWindow* window, NormalPlat normal) {
-    normal.render(window);
+void Level1::renderLevel1(RenderWindow* window) {
+    if (normalP != nullptr) {
+    normalP->render(window);
+    }
     // broken.render()
     // boots.render()
 }
 
-Level1::~Level1() {}
+NormalPlat* Level1::get_NormalPlat() {
+    return normalP;
+}
+
+Level1::~Level1() {
+    delete normalP;
+    // delete brokenP;
+    // delete boot;
+}
