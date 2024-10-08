@@ -1,11 +1,11 @@
-#ifndef INGAME_H
-#define INGAME_H
+#ifndef GAMEOVER_H
+#define GAMEOVER_H
 #include <SFML/Graphics.hpp>
 #include "Button.h"
 
 using namespace sf;
 
-class inGame { //rename to GameOver class?
+class gameOver { //rename to GameOver class?
   protected:
     //Player player;
     int score;
@@ -14,7 +14,7 @@ class inGame { //rename to GameOver class?
     Button* homeBTN;
     Button* LeaderboardBTN;
   public:  
-    inGame(); //default constructor
+    gameOver(); //default constructor
     void countScore();
     int getScore();
     void playAgain();
@@ -22,7 +22,7 @@ class inGame { //rename to GameOver class?
     void Leaderboard();
     //void gameOver();
     void render();
-    ~inGame(); //destructor
+    ~gameOver(); //destructor
 };
 
 #endif
