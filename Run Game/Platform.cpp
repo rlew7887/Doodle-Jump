@@ -47,4 +47,3 @@ void Platform::shiftDown(float distance) {
     }
 
 }
-

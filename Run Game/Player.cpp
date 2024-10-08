@@ -38,7 +38,6 @@ void Player::moveRight(float FPS) {
 }
 
 void Player::jump(float& velocity, float FPS, Platform& platform) {
-    // Initialise bool
     onPlatform = false;
 
     // Get current position
@@ -46,32 +45,37 @@ void Player::jump(float& velocity, float FPS, Platform& platform) {
     int jumpX = position.x;
     int jumpY = position.y;
 
-    velocity += 0.2; // gravity affect -> character falling
-    jumpY += velocity * (120*(FPS)); // change character y position according to velocity * (desired FPS / current FPS = delta time)
+    velocity += 0.2; // Gravity effect -> character falling
+    jumpY += velocity * (120 * FPS); // Update character y position according to velocity and FPS
 
-    // Create bounding boxes for the player
+    // Define maximum height the player can reach (e.g., mid-screen height)
+    const float maxHeight = 400.0f; // Adjust this value based on screen size
+
+    // Ensure the player doesn't move above the maximum height
+    if (jumpY < maxHeight) {
+        jumpY = maxHeight; // Restrict the player to maxHeight
+    }
+
+    // Collision detection with platforms, as before
     FloatRect playerBounds = defaultPlayer.getGlobalBounds();
-    float playerBottom = playerBounds.top + playerBounds.height; // bottom bounds of the player
+    float playerBottom = playerBounds.top + playerBounds.height;
 
     for (int i = 0; i < 20; i++) {
-        // Get top position of the current platform
-        float platformTop = platform.plat[i].y; 
-        // Get bottom position of the current platform
-        float platformBottom = platformTop + 20; 
+        float platformTop = platform.plat[i].y;
+        float platformBottom = platformTop + 20;
 
-        // Check if the player's bottom is above the platform and if the player is falling
         if (playerBottom >= platformTop && playerBottom <= platformBottom && velocity > 0) {
-            // Check if player position is within the width of the platforms
-            if ((defaultPlayer.getPosition().x >= platform.plat[i].x || defaultPlayer.getPosition().x+55 >= platform.plat[i].x) && (defaultPlayer.getPosition().x <= platform.plat[i].x+80 || defaultPlayer.getPosition().x+55 <= platform.plat[i].x+80)) {
-                // Player has landed on the platform
-                jumpY = platformTop - playerBounds.height; // Position the player on top of the platform
-                velocity = -10; // jumping
+            if ((defaultPlayer.getPosition().x >= platform.plat[i].x || defaultPlayer.getPosition().x + 50 >= platform.plat[i].x) &&
+                (defaultPlayer.getPosition().x <= platform.plat[i].x + 80 || defaultPlayer.getPosition().x + 50 <= platform.plat[i].x + 80)) {
+                jumpY = platformTop - playerBounds.height;
+                velocity = -10;
                 onPlatform = true;
-                }
-            } 
+            }
         }
+    }
 
-    defaultPlayer.setPosition(jumpX,jumpY); // redefine character position
+    // Update the player's position after applying the restriction
+    defaultPlayer.setPosition(jumpX, jumpY);
 }
 
 void Player::render() {
