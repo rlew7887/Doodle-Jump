@@ -180,7 +180,7 @@ void Player::render() {
 }
 
 
-Vector2f Player::getPosition() {
+Vector2f Player::get_Position() {
     return defaultPlayer.getPosition();
 }
 //Player::~Player() {delete gameOver;}

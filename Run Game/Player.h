@@ -30,7 +30,7 @@ class Player {
 
     bool getOnPlatform();
 
-    Vector2f getPosition();
+    Vector2f get_Position();
 
     ~Player() {};
 
