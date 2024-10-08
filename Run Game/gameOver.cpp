@@ -1,8 +1,8 @@
-#include "inGame.h"
+#include "gameOver.h"
 #include "Home.h"
 #include <iostream>
 
-inGame::inGame():score(score){
+gameOver::gameOver():score(score){
     font.loadFromFile("./SkeletonFont.ttf"); // load font file
 
     // Check if successfully loaded
@@ -12,29 +12,29 @@ inGame::inGame():score(score){
     }
 }
 
-void inGame::countScore(){
+void gameOver::countScore(){
     //score = gety();
     //if (Y > previousY)
     //score ++;
 }
 
-int inGame::getScore(){
+int gameOver::getScore(){
     return score;
 }
 
-void inGame::playAgain(){
+void gameOver::playAgain(){
     this->playAgainBTN = new Button(170,280,90,40,this->font,"Play Again",Color(199,214,255,200),Color(135,147,176,255),Color(98,115,140,200));
 }
 
-void inGame::home(){
+void gameOver::home(){
     this->homeBTN = new Button(170,400,90,40,this->font,"Home",Color(199,214,255,200),Color(135,147,176,255),Color(98,115,140,200));
 }
 
-void inGame::Leaderboard(){
+void gameOver::Leaderboard(){
     this->LeaderboardBTN = new Button(170,520,90,40,this->font,"Leader Board",Color(199,214,255,200),Color(135,147,176,255),Color(98,115,140,200));
 }
 
-void inGame::render(){
+void gameOver::render(){
     //Get device screen size
     VideoMode desktop = VideoMode::getDesktopMode();
     
