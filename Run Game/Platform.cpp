@@ -49,7 +49,7 @@ void Platform::shiftDown(float distance) {
             
             while (!validPosition) {
                 int tempX = rand() % 420; // Max x = window width - platform width = 500-80 = 420
-                int tempY = rand() % 30;  // Randomize a y position (0-30)
+                int tempY = rand() % 50;  // Randomize a y position (0-50)
 
                 validPosition = true; // Assume position is valid 
 
