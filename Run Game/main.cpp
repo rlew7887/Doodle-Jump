@@ -8,10 +8,9 @@ int main()
 {
     Player test;
     test.render();
+    std::cout << "Score: " << test.getScore() << std::endl;
     // Home test;
     // test.displayGraphics();
-    int testScore = test.getScore();
-    std::cout << "Score: " << testScore << std::endl; //not supposed to be 0;
     // inGame test;
     // test.render();
 

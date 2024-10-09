@@ -1,7 +1,7 @@
 #include "Player.h"
 #include <iostream>
 
-Player::Player() : score(score) {
+Player::Player() {
     // Initialize the player 
     if (!sharkPlayer.loadFromFile("sharkPlayer.png")){
         std::cout << "Failed to load" << std::endl; //Check whether image has loaded
@@ -48,8 +48,8 @@ void Player::jump(float& velocity, float FPS, Platform& platform) {
     velocity += 0.2; // Gravity effect -> character falling
     jumpY += velocity * (120 * FPS); // Update character y position according to velocity and FPS
 
-    // Define maximum height the player can reach (e.g., mid-screen height)
-    const float maxHeight = 100.0f; // Adjust this value based on screen size
+    // Define maximum height the player can reach
+    const float maxHeight = 0.0f; //Ensure player does not jump higher than top of the screen
 
     // Ensure the player doesn't move above the maximum height
     if (jumpY < maxHeight) {
@@ -105,7 +105,6 @@ void Player::render() {
 
     Text scoreText; 
     scoreText.setFont(this->font);
-    int score = 0;
     scoreText.setCharacterSize(30);
     scoreText.setFillColor(Color::Black);
     scoreText.setStyle(Text::Bold);
@@ -124,7 +123,7 @@ void Player::render() {
         Time elapsed = clock.restart();
         float deltaTime = elapsed.asSeconds();
 
-        score++;
+        this->score++;
         scoreText.setString(std::to_string(score));
 
         Event event;
