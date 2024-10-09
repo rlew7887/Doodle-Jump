@@ -2,7 +2,7 @@
 #include "Home.h"
 #include <iostream>
 
-gameOver::gameOver():score(score){
+GameOver::GameOver():score(score){
     font.loadFromFile("./SkeletonFont.ttf"); // load font file
 
     // Check if successfully loaded
@@ -12,29 +12,19 @@ gameOver::gameOver():score(score){
     }
 }
 
-// void gameOver::countScore(){
-//     //score = gety();
-//     //if (Y > previousY)
-//     //score ++;
-// }
-
-// int gameOver::getScore(){
-//     return score;
-// }
-
-void gameOver::playAgain(){
+void GameOver::playAgain(){
     this->playAgainBTN = new Button(170,280,90,40,this->font,"Play Again",Color(199,214,255,200),Color(135,147,176,255),Color(98,115,140,200));
 }
 
-void gameOver::home(){
+void GameOver::home(){
     this->homeBTN = new Button(170,400,90,40,this->font,"Home",Color(199,214,255,200),Color(135,147,176,255),Color(98,115,140,200));
 }
 
-void gameOver::Leaderboard(){
+void GameOver::Leaderboard(){
     this->LeaderboardBTN = new Button(170,520,90,40,this->font,"Leader Board",Color(199,214,255,200),Color(135,147,176,255),Color(98,115,140,200));
 }
 
-void gameOver::render(){
+void GameOver::render(Player& player){
     //Get device screen size
     VideoMode desktop = VideoMode::getDesktopMode();
     
@@ -66,7 +56,15 @@ void gameOver::render(){
     title.setCharacterSize(100); //set the character size
     title.setFillColor(Color::Black); //set the color
     title.setStyle(Text::Bold); //set the text style
-    title.setPosition(120,120);
+    title.setPosition(120,90);
+
+    Text scoreText;
+    scoreText.setFont(this->font); 
+    scoreText.setCharacterSize(35); 
+    scoreText.setFillColor(Color::Black);
+    scoreText.setStyle(Text::Bold);
+    scoreText.setPosition(190,200);
+    int score = player.getScore();
 
     //Initialise buttons
     playAgain();
@@ -79,6 +77,8 @@ void gameOver::render(){
                 if (event.type == Event::Closed)
                     window.close();
         }
+
+        scoreText.setString("Score: " + std::to_string(score));
 
         // Update button state according to mouse position
         playAgainBTN->updateButton(Vector2f(Mouse::getPosition(window).x, Mouse::getPosition(window).y));
@@ -110,6 +110,7 @@ void gameOver::render(){
         window.clear();
         window.draw(bg); //draw background image
         window.draw(title);
+        window.draw(scoreText); //Render the score
 
         // Draw buttons
         playAgainBTN->render(&window);
@@ -119,36 +120,13 @@ void gameOver::render(){
     }
 }
 
-// void inGame::render(){
-//     RenderWindow window(VideoMode(500, 800), "Doodle Jump");
-//     sf::Texture t;
-//     t.loadFromFile("grid-bg.jpg");
-//     sf::Sprite s(t);
-//     sf::Vector2u windowSize = window.getSize(); //get window size
-//     sf::Vector2u textureSize = t.getSize(); //get image size
-//     //Calculate scale factors to make image fit to window
-//     float scaleX = (1.0f * windowSize.x) / textureSize.x;
-//     float scaleY = (1.0f * windowSize.y) / textureSize.y;
-//     s.setScale(scaleX, scaleY); //scale the sprite
-//     // Player player;
-//     // player.render(); This function in player.cpp will be changed to just render a rectangle/character that can move left/right
-//     while (window.isOpen()){
-//         Event event;
-//         while (window.pollEvent(event)){
-//                 if (event.type == Event::Closed)
-//                     window.close();
-//         }
-//         window.clear();
-//         window.draw(s);
-//         window.display();
-//     }
 //     //Should know when to switch between levels 
 //     //if (score > 500){
 //     //  void render(level2)} ??
 //     //render background and score only
 // }
 
-gameOver::~gameOver(){
+GameOver::~GameOver(){
     delete playAgainBTN;
     delete homeBTN;
     delete LeaderboardBTN;

@@ -151,8 +151,8 @@ void Player::render() {
         // When player falls out of screen
         if (onPlatform == false && defaultPlayer.getPosition().y >= 720) {
             window.close();
-            gameOver GameOver;
-            GameOver.render();
+            GameOver GameOver;
+            GameOver.render(*this);
         }
 
 
