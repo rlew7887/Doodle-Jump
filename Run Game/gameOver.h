@@ -5,7 +5,9 @@
 
 using namespace sf;
 
-class gameOver { //rename to GameOver class?
+class Player;
+
+class GameOver{
   protected:
     //Player player;
     int score;
@@ -14,15 +16,13 @@ class gameOver { //rename to GameOver class?
     Button* homeBTN;
     Button* LeaderboardBTN;
   public:  
-    gameOver(); //default constructor
-    //void countScore();
-    //int getScore();
+    GameOver(); //default constructor
     void playAgain();
     void home();
     void Leaderboard();
     //void gameOver();
-    void render();
-    ~gameOver(); //destructor
+    void render(Player& player);
+    ~GameOver(); //destructor
 };
 
 #endif

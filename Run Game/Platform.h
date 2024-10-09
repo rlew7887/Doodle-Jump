@@ -16,6 +16,7 @@ class Platform {
         void render(RenderWindow* target);
         void shiftDown(float distance);
         virtual void generatePlatforms(int numToGenerate); // Modify the frequency of platforms being generated 
+        Point getPlat(int index);
         virtual ~Platform() {}
         
 };
