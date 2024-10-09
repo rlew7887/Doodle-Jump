@@ -1,7 +1,7 @@
 #include "Player.h"
 #include <iostream>
 
-Player::Player() {
+Player::Player() : score(0){
     // Initialize the player 
     if (!sharkPlayer.loadFromFile("sharkPlayer.png")){
         std::cout << "Failed to load" << std::endl; //Check whether image has loaded
