@@ -3,6 +3,7 @@
 #include <SFML/Graphics.hpp>
 #include "Platform.h"
 #include "NormalPlat.h"
+#include "BrokenPlat.h"
 #include "gameOver.h"
 #include "Level1.h"
 
@@ -25,7 +26,7 @@ class Player {
 
     void moveRight(float FPS);
 
-    void jump(float& velocity, float FPS, Platform& platform);
+    void jump(float& velocity, float FPS, Platform& platform, BrokenPlat& brokenPlatform);
 
     int getScore();
 
