@@ -1,4 +1,5 @@
 #include "Player.h"
+#include "BrokenPlat.h"
 #include <iostream>
 
 Player::Player() : score(0){
@@ -37,7 +38,7 @@ void Player::moveRight(float FPS) {
     defaultPlayer.setPosition(position);
 }
 
-void Player::jump(float& velocity, float FPS, Platform& platform) {
+void Player::jump(float& velocity, float FPS, Platform& platform, BrokenPlat& brokenPlatform) {
     onPlatform = false;
 
     // Get current position
@@ -151,8 +152,8 @@ void Player::render() {
         // When player falls out of screen
         if (onPlatform == false && defaultPlayer.getPosition().y >= 720) {
             window.close();
-            gameOver GameOver;
-            GameOver.render();
+            GameOver GameOver;
+            GameOver.render(*this);
         }
 
 
@@ -162,7 +163,7 @@ void Player::render() {
         }
 
         // Jumping implementation
-        jump(velocity, deltaTime, *level1.get_NormalPlat()); // for level1 normal platform
+        jump(velocity, deltaTime, *level1.get_NormalPlat(), *level1.get_BrokenPlat()); // for level1 normal platform
         
         window.clear();
 
