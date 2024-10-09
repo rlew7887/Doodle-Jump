@@ -80,3 +80,8 @@ void Platform::shiftDown(float distance) {
         }
     }
 }
+
+
+Platform::Point Platform::getPlat(int index) {
+    return plat[index];
+}
