@@ -13,7 +13,6 @@ class NormalPlat : public Platform {
 
     public:
         NormalPlat();
-        void render(RenderWindow* target);
         ~NormalPlat() {}
 };
 

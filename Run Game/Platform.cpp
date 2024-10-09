@@ -13,9 +13,11 @@ Platform::Platform() {
 
 // Render function, setting and drawing platforms at randomized positions
 void Platform::render(RenderWindow* target) {
-    for (int i = 0; i < 11; i++) {
+    for (int i = 0; i < 20; i++) {
         platform.setPosition(plat[i].x, plat[i].y);
-        target->draw(platform);
+        if (plat[i].x != 0 && plat[i].y != 0) {
+                target->draw(platform); 
+            }
     }
 }
 
