@@ -15,8 +15,8 @@ class gameOver { //rename to GameOver class?
     Button* LeaderboardBTN;
   public:  
     gameOver(); //default constructor
-    void countScore();
-    int getScore();
+    //void countScore();
+    //int getScore();
     void playAgain();
     void home();
     void Leaderboard();

@@ -14,6 +14,7 @@ class Player {
     sf::Texture sharkPlayer;
     bool onPlatform;
     Font font;
+    int score;
 
     //gameOver gameOver;
 
@@ -25,6 +26,8 @@ class Player {
     void moveRight(float FPS);
 
     void jump(float& velocity, float FPS, Platform& platform);
+
+    int getScore();
 
     void render();
 

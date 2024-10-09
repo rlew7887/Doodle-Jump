@@ -1,7 +1,7 @@
 #include "Player.h"
 #include <iostream>
 
-Player::Player() {
+Player::Player() : score(score) {
     // Initialize the player 
     if (!sharkPlayer.loadFromFile("sharkPlayer.png")){
         std::cout << "Failed to load" << std::endl; //Check whether image has loaded
@@ -49,7 +49,7 @@ void Player::jump(float& velocity, float FPS, Platform& platform) {
     jumpY += velocity * (120 * FPS); // Update character y position according to velocity and FPS
 
     // Define maximum height the player can reach (e.g., mid-screen height)
-    const float maxHeight = 400.0f; // Adjust this value based on screen size
+    const float maxHeight = 100.0f; // Adjust this value based on screen size
 
     // Ensure the player doesn't move above the maximum height
     if (jumpY < maxHeight) {
@@ -78,6 +78,10 @@ void Player::jump(float& velocity, float FPS, Platform& platform) {
     defaultPlayer.setPosition(jumpX, jumpY);
 }
 
+int Player::getScore(){
+    return score;
+}
+
 void Player::render() {
     // Get the device screen size
     VideoMode desktop = VideoMode::getDesktopMode();
@@ -99,13 +103,13 @@ void Player::render() {
     float scaleY = (1.0f * windowSize.y) / textureSize.y;
     bg.setScale(scaleX, scaleY); //scale the sprite
 
-    Text score; 
-    score.setFont(this->font);
-    int score1 = 0;
-    score.setCharacterSize(30);
-    score.setFillColor(Color::Black);
-    score.setStyle(Text::Bold);
-    score.setPosition(430, 10);
+    Text scoreText; 
+    scoreText.setFont(this->font);
+    int score = 0;
+    scoreText.setCharacterSize(30);
+    scoreText.setFillColor(Color::Black);
+    scoreText.setStyle(Text::Bold);
+    scoreText.setPosition(430, 10);
 
     // Limit framerate to 120 FPS
     window.setFramerateLimit(120);
@@ -120,8 +124,8 @@ void Player::render() {
         Time elapsed = clock.restart();
         float deltaTime = elapsed.asSeconds();
 
-        score1++;
-        score.setString(std::to_string(score1));
+        score++;
+        scoreText.setString(std::to_string(score));
 
         Event event;
         while (window.pollEvent(event)) {
@@ -170,7 +174,7 @@ void Player::render() {
         level1.renderLevel1(&window);
 
         //Render the score
-        window.draw(score);
+        window.draw(scoreText);
 
         // Render the player
         window.draw(defaultPlayer);

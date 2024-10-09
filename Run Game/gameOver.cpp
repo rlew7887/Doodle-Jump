@@ -12,15 +12,15 @@ gameOver::gameOver():score(score){
     }
 }
 
-void gameOver::countScore(){
-    //score = gety();
-    //if (Y > previousY)
-    //score ++;
-}
+// void gameOver::countScore(){
+//     //score = gety();
+//     //if (Y > previousY)
+//     //score ++;
+// }
 
-int gameOver::getScore(){
-    return score;
-}
+// int gameOver::getScore(){
+//     return score;
+// }
 
 void gameOver::playAgain(){
     this->playAgainBTN = new Button(170,280,90,40,this->font,"Play Again",Color(199,214,255,200),Color(135,147,176,255),Color(98,115,140,200));
