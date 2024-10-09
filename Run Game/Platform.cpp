@@ -42,12 +42,41 @@ void Platform::generatePlatforms(int numToGenerate) {
 void Platform::shiftDown(float distance) {
     for (int i = 0; i < 11; ++i) {
         plat[i].y += distance; // Shift each platform down
+
+        // When a platform moves off the screen, generate one new platform at the top
         if (plat[i].y >= 750) {
-            // Randomize 1 platform position
-            plat[i].x = rand() % 420;
-            plat[i].y = rand() % 1;
+            bool validPosition = false; // bool to check if platform position is valid
             
+            while (!validPosition) {
+                int tempX = rand() % 420; // Max x = window width - platform width = 500-80 = 420
+                int tempY = rand() % 30;  // Randomize a y position (0-30)
+
+                validPosition = true; // Assume position is valid 
+
+                // Check if the new platform intersects any existing platforms
+                for (int j = 0; j < 11; ++j) {
+                    if (j != i) { // Skip the current platform being repositioned
+                        int dx = abs(tempX - plat[j].x); // Horizontal distance
+                        int dy = abs(tempY - plat[j].y); // Vertical distance
+
+                        // Set minimum spacing
+                        const int minHorizontalGap = 90; // Min width difference
+                        const int minVerticalGap = 30;   // Min height difference
+
+                        // Check if the new position is too close to another platform
+                        if (dx < minHorizontalGap && dy < minVerticalGap) {
+                            validPosition = false; // set as false
+                            break; 
+                        }
+                    }
+                }
+
+                // If position is valid, assign it as the platform's coordinates
+                if (validPosition) {
+                    plat[i].x = tempX;
+                    plat[i].y = tempY;
+                }
+            }
         }
     }
-
 }

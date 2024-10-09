@@ -68,7 +68,7 @@ void Player::jump(float& velocity, float FPS, Platform& platform) {
             if ((defaultPlayer.getPosition().x >= platform.plat[i].x || defaultPlayer.getPosition().x + 50 >= platform.plat[i].x) &&
                 (defaultPlayer.getPosition().x <= platform.plat[i].x + 80 || defaultPlayer.getPosition().x + 50 <= platform.plat[i].x + 80)) {
                 jumpY = platformTop - playerBounds.height;
-                velocity = -10;
+                velocity = -9;
                 onPlatform = true;
             }
         }
