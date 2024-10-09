@@ -11,6 +11,7 @@ private:
    // Sprite to display the texture  
 public:  
    BrokenPlat();  
+   void render(RenderWindow* target) override;
    ~BrokenPlat() {}  
 };  
 #endif

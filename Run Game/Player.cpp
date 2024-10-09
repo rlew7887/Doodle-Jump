@@ -159,7 +159,9 @@ void Player::render() {
 
         // When the player reaches the middle of the window
         if (defaultPlayer.getPosition().y <= window.getSize().y / 2) {
-            level1.get_NormalPlat()->shiftDown(2); // Shift all platforms down by 2 pixels
+            // Shift all platforms down by 2 pixels
+            level1.get_NormalPlat()->shiftDown(2); 
+            level1.get_BrokenPlat()->shiftDown(2);
         }
 
         // Jumping implementation
