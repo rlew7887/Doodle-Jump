@@ -11,7 +11,7 @@ int main()
     std::cout << "Score: " << test.getScore() << std::endl;
     // Home test;
     // test.displayGraphics();
-    // inGame test;
+    // gameOver test;
     // test.render();
 
     return 0;
