@@ -4,6 +4,8 @@
 Platform::Platform() {
     platform.setSize(Vector2f(80.f, 20.f));
     platform.setFillColor(Color::Green);
+    platform.setOutlineThickness(1);
+    platform.setOutlineColor(Color::Black);
 
     // Generate a platform at player spawn position
     plat[0].x = 250;
