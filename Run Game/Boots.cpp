@@ -1,8 +1,13 @@
 #include "Boots.h"
 
 Boots::Boots() {
+    // Initialise variables
     deleteBoots = false;
     hasBeenTrue = false;
+    hasAppliedEffect = false;
+    effectCompleted = false;
+    totalSteps = 50;   
+    currentStep = 0;
     setupPowerUp();
 }
 
@@ -18,7 +23,29 @@ void Boots::setupPowerUp() {
     boots.setScale(scaleX, scaleY);  //Apply the scale to resize the sprite
 }
 
-void Boots::applyEffect() {}
+void Boots::applyEffect() {
+    currentStep = 0;  // Reset the step counter
+    hasAppliedEffect = true; // Set effect as true
+}
+
+void Boots::updateEffect(Platform* platform, bool powerUpCollected) {
+    // If the power-up is collected and the effect is not active
+    if (powerUpCollected && !hasAppliedEffect && !hasAppliedEffect) {
+        currentStep = 0;    // Reset the step counter
+        hasAppliedEffect = true; // Mark effect as active
+    }
+
+    // If the effect is active, gradually shift the platform down
+    if (hasAppliedEffect) {
+        if (currentStep < totalSteps) {
+            platform->shiftDown(10.0f); // Shift the platform down
+            currentStep++; // Increment
+        } else {
+            hasAppliedEffect = false; // Set effect as false after moving down
+            hasAppliedEffect = true; // Set effect as completed
+        }
+    }
+}
 
 
 void Boots::render(RenderWindow* window) {
@@ -45,4 +72,12 @@ bool Boots::getHasBeenTrue() {
 
 void Boots::setHasBeenTrue(bool status) {
     hasBeenTrue = status;
+}
+
+bool Boots::getHasAppliedEffect() {
+    return hasAppliedEffect;
+}
+
+void Boots::setHasAppliedEffect(bool status) {
+    hasAppliedEffect = status;
 }

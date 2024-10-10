@@ -172,6 +172,7 @@ void Player::render() {
             if (getScore() % 1000 < 5) { // Until score = 5000, which is the end of level 1
                 level1.get_Boots()->setDeleteStatus(false);
                 level1.get_Boots()->setHasBeenTrue(false);
+                level1.get_Boots()->setHasAppliedEffect(false);
             }
         }
 
@@ -180,6 +181,16 @@ void Player::render() {
            level1.get_Boots()->setDeleteStatus(true);
            level1.get_Boots()->setHasBeenTrue(true);
         }
+        
+        // Redefine bool
+        bool powerUpCollected = (level1.get_Boots()->getDeleteStatus() == true && 
+                                level1.get_Boots()->getHasBeenTrue() == true &&
+                                level1.get_Boots()->getHasAppliedEffect() == false);
+
+        // Update boots effect
+        level1.get_Boots()->updateEffect(level1.get_NormalPlat(), powerUpCollected);
+        level1.get_Boots()->updateEffect(level1.get_BrokenPlat(), powerUpCollected);
+
 
         // Jumping implementation
         jump(velocity, deltaTime, *level1.get_NormalPlat(), *level1.get_BrokenPlat()); // for level1 normal platform

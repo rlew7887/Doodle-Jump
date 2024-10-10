@@ -13,10 +13,6 @@ void PowerUps::shiftDown(float distance, int score) {
     }
 }
 
-void PowerUps::deactivate() {
-    isActive = false; // Deactivate the power-up (customize as needed)
-}
-
 PowerUps::Point PowerUps::getPoint() {
     return powerups;
 }
