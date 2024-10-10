@@ -170,7 +170,7 @@ void Player::render() {
 
         // Reset powerups bool variables for every 1000 score
         if (level1.get_Boots()->getDeleteStatus() == true && level1.get_Boots()->getHasBeenTrue() == true) {
-            if (getScore() % 1000 < 1000) { // Until score = 1000000
+            if (getScore() % 1000 < 10) { // Until score = 10000
                 level1.get_Boots()->setDeleteStatus(false);
                 level1.get_Boots()->setHasBeenTrue(false);
                 level1.get_Boots()->setHasAppliedEffect(false);
