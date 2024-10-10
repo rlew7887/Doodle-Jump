@@ -14,7 +14,7 @@ void Level1::renderLevel1(RenderWindow* window) {
    if (brokenP != nullptr) {  
       brokenP->render(window);  
    }  
-   if (boot != nullptr) {  
+   if (boot != nullptr && boot->getDeleteStatus() == false && boot->getHasBeenTrue() == false) {  
       boot->render(window);  
    }    
 }  

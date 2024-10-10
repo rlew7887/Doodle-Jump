@@ -19,6 +19,7 @@ class PowerUps {
         virtual void render(RenderWindow* window) = 0;
         void shiftDown(float distance, int score);
         void deactivate();
+        Point getPoint();
         virtual ~PowerUps() {};
 };
 

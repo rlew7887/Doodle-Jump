@@ -1,6 +1,8 @@
 #include "Boots.h"
 
 Boots::Boots() {
+    deleteBoots = false;
+    hasBeenTrue = false;
     setupPowerUp();
 }
 
@@ -21,11 +23,26 @@ void Boots::applyEffect() {}
 
 void Boots::render(RenderWindow* window) {
     boots.setPosition(powerups.x, powerups.y);
-    if (powerups.x != 0 && powerups.y != 0) {
-            window->draw(boots); 
-    }
+    window->draw(boots); 
 }
 
 Sprite Boots::getBoots() {
     return boots;
+}
+
+bool Boots::getDeleteStatus() {
+    return deleteBoots;
+}
+
+void Boots::setDeleteStatus(bool status) {
+    deleteBoots = status;
+}
+
+
+bool Boots::getHasBeenTrue() {
+    return hasBeenTrue;
+}
+
+void Boots::setHasBeenTrue(bool status) {
+    hasBeenTrue = status;
 }

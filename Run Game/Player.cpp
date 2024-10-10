@@ -162,7 +162,22 @@ void Player::render() {
             // Shift all platforms down by 2 pixels
             level1.get_NormalPlat()->shiftDown(2); 
             level1.get_BrokenPlat()->shiftDown(2);
+
+            // Shift all powerups down by 2 pixels
             level1.get_Boots()->shiftDown(2,getScore());
+        }
+
+        // Reset powerups bool variables for every 1000 score
+        if (level1.get_Boots()->getDeleteStatus() == true && level1.get_Boots()->getHasBeenTrue() == true) {
+            if (getScore() % 1000 < 5) { // Until score = 5000, which is the end of level 1
+                level1.get_Boots()->setDeleteStatus(false);
+                level1.get_Boots()->setHasBeenTrue(false);
+            }
+        }
+
+        if(defaultPlayer.getGlobalBounds().intersects(level1.get_Boots()->getBoots().getGlobalBounds())) {
+           level1.get_Boots()->setDeleteStatus(true);
+           level1.get_Boots()->setHasBeenTrue(true);
         }
 
         // Jumping implementation
