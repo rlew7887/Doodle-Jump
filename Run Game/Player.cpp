@@ -175,6 +175,7 @@ void Player::render() {
             }
         }
 
+        // Collision detection for powerups, the powerup disappear as the player collide with it
         if(defaultPlayer.getGlobalBounds().intersects(level1.get_Boots()->getBoots().getGlobalBounds())) {
            level1.get_Boots()->setDeleteStatus(true);
            level1.get_Boots()->setHasBeenTrue(true);
