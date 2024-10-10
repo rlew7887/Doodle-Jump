@@ -103,7 +103,8 @@ void GameOver::render(Player& player){
                 if (LeaderboardBTN->isMouseOver(Vector2f(Mouse::getPosition(window).x, Mouse::getPosition(window).y))) {
                     //when leaderboard button is pressed, render leaderboard
                     window.close();
-                    // Add code for showing leaderboard here
+                    HighScore highscore;
+                    highscore.displayTopScores();
                 }
             }
 

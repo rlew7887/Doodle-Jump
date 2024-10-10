@@ -3,6 +3,7 @@
 #include <SFML/Graphics.hpp>
 #include "Button.h"
 #include "Player.h"
+#include "HighScore.h"
 
 using namespace sf;
 
@@ -14,8 +15,6 @@ class Home {
 
         RectangleShape tutorialPopup;
         Text tutorialText;
-
-        Player* newGame;
 
         Font font;
     

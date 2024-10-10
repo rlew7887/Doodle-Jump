@@ -57,9 +57,6 @@ void Home::displayGraphics() {
         // Initialise tutorial popup
         bool showPopup = false;
 
-        // Initialise a new game
-        newGame = new Player();
-
     while (window.isOpen())
     {
         Event event;
@@ -84,7 +81,15 @@ void Home::displayGraphics() {
         // Transition to game page when start game button is pressed
         if (startGameBTN->getButtonState() == true) {
             window.close();
-            newGame->render();
+            Player newGame;
+            newGame.render();
+        }
+
+        //Transition to HighScores page when showLeaderBoard button is pressed
+        if (showLeaderBoardBTN->getButtonState() == true) {
+            window.close();
+            HighScore highscore;
+            highscore.displayTopScores();
         }
         
         // clear the window with black color
@@ -152,6 +157,5 @@ Home::~Home() {
     delete startGameBTN;
     delete showTutorialBTN;
     delete showLeaderBoardBTN;
-    delete newGame;
 }
 
