@@ -21,7 +21,7 @@ class Boots : public PowerUps {
         Boots();
         void setupPowerUp() override;
         void applyEffect() override;
-        void updateEffect(Platform* platform, bool powerUpCollected);
+        void updateEffect(Platform* platform, bool powerUpCollected) override;
         void render(RenderWindow* window) override;
         Sprite getBoots();
         bool getDeleteStatus();

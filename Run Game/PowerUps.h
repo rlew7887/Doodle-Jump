@@ -7,7 +7,7 @@
 using namespace sf;
 
 class PowerUps {
-    private:
+    protected:
         struct Point {int x, y;};
 
     public:
@@ -15,6 +15,7 @@ class PowerUps {
         PowerUps();
         virtual void setupPowerUp() = 0;
         virtual void applyEffect() = 0;
+        virtual void updateEffect(Platform* platform, bool powerUpCollected) = 0;
         virtual void render(RenderWindow* window) = 0;
         void shiftDown(float distance, int score);
         Point getPoint();

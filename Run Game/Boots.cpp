@@ -81,3 +81,4 @@ bool Boots::getHasAppliedEffect() {
 void Boots::setHasAppliedEffect(bool status) {
     hasAppliedEffect = status;
 }
+
