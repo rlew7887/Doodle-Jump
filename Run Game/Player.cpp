@@ -162,6 +162,7 @@ void Player::render() {
             // Shift all platforms down by 2 pixels
             level1.get_NormalPlat()->shiftDown(2); 
             level1.get_BrokenPlat()->shiftDown(2);
+            level1.get_Boots()->shiftDown(2,getScore());
         }
 
         // Jumping implementation

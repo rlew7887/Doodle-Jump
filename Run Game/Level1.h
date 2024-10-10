@@ -5,18 +5,22 @@
 #include "BrokenPlat.h" 
 #include "Player.h"  
 #include "gameOver.h"  
+#include "PowerUps.h"
+#include "Boots.h"
+
 class Level1 {  
 private:  
    NormalPlat* normalP;  
    BrokenPlat* brokenP;  
-   // Boots* boot;  
+   Boots* boot;
+
 public:  
    Level1();  
    void setupLevel();  
    void renderLevel1(RenderWindow* window);  
    NormalPlat* get_NormalPlat();  
    BrokenPlat* get_BrokenPlat();  
-   // get_Boots();  
+   Boots* get_Boots(); 
    ~Level1();  
 };
 

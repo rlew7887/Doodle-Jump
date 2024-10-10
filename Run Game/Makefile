@@ -2,7 +2,7 @@
 TARGET = game
 
 # source files
-SOURCES = main.cpp Home.cpp Button.cpp Player.cpp Platform.cpp NormalPlat.cpp BrokenPlat.cpp gameOver.cpp Level1.cpp
+SOURCES = main.cpp Home.cpp Button.cpp Player.cpp Platform.cpp NormalPlat.cpp BrokenPlat.cpp gameOver.cpp Level1.cpp PowerUps.cpp Boots.cpp
 
 # SOURCES (With test files) = Home.cpp Button.cpp Player.cpp Platform.cpp NormalPlat.cpp gameOver.cpp Level1.cpp HighScore.cpp PlayerTest.h HighScoreTest.h mainTest.cpp
 
