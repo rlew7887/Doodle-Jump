@@ -2,7 +2,7 @@
 #include <iostream>
 
 Home::Home() {
-    font.loadFromFile("./SkeletonFont.ttf"); // load font fil
+    font.loadFromFile("./SkeletonFont.ttf"); // load font file
 
     // Check if successfully loaded
     if (!font.loadFromFile("./SkeletonFont.ttf"))

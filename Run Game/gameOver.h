@@ -2,7 +2,7 @@
 #define GAMEOVER_H
 #include <SFML/Graphics.hpp>
 #include "Button.h"
-//#include "HighScore.h"
+#include "HighScore.h"
 
 using namespace sf;
 
