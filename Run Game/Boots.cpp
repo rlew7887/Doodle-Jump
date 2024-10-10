@@ -8,11 +8,11 @@ void Boots::setupPowerUp() {
     if (!bootsTexture.loadFromFile("RubberBoots.png")){
         std::cout << "Failed to load" << std::endl; //Check whether image has loaded
     }
-    boots.setTexture(bootsTexture);
+    boots.setTexture(bootsTexture); // set boots texture
     bootsTexture.setSmooth(true); //smooths the outline
     Vector2u textureSize = bootsTexture.getSize();  //Get the original texture size
-    float scaleX = 80.0f / textureSize.x;  //Calculate scale factor for width
-    float scaleY = 80.0f / textureSize.y;  //Calculate scale factor for height
+    float scaleX = 60.0f / textureSize.x;  //Calculate scale factor for width
+    float scaleY = 60.0f / textureSize.y;  //Calculate scale factor for height
     boots.setScale(scaleX, scaleY);  //Apply the scale to resize the sprite
 }
 
