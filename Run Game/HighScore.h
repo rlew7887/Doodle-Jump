@@ -2,7 +2,7 @@
 #define HIGHSCORE_H
 #include <SFML/Graphics.hpp>
 #include "Button.h"
-#include "Home.h"
+//#include "Home.h"
 using namespace sf;
 
 class HighScore{

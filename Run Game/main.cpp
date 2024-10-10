@@ -9,7 +9,6 @@ int main()
 {
     // Player test;
     // test.render();
-    //std::cout << "Score: " << test.getScore() << std::endl;
     Home test;
     test.displayGraphics();
     // gameOver test;

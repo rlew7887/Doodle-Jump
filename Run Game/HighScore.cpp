@@ -20,7 +20,7 @@ void HighScore::home(){
 }
 
 void HighScore::addScore(int score){
-    if (score > highScores[9]) { //Compare with the lowest score in the top 10
+    if (score > highScores[9]) { //Compare with the lowest score in the top 1
         highScores[9] = score; //Replace the lowest score with the new score
 
         //Sort the scores in descending order

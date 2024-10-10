@@ -3,7 +3,7 @@
 #include <iostream>
 
 GameOver::GameOver():score(score){
-    font.loadFromFile("./SkeletonFont.ttf"); // load font file
+    font.loadFromFile("./SkeletonFont.ttf"); // load font fil
 
     // Check if successfully loaded
     if (!font.loadFromFile("./SkeletonFont.ttf"))
