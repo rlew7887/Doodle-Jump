@@ -1,5 +1,4 @@
 #include "Player.h"
-#include "BrokenPlat.h"
 #include <iostream>
 
 Player::Player() : score(0){
@@ -117,7 +116,9 @@ void Player::render() {
     float velocity = 0; // Initialize velocity for jumping
     Clock clock; // Create a clock to measure time between frames
     Level1 level1; // Initialise level1
+    Level2 level2; // Initialise level2
     level1.setupLevel(); // Setup level1
+    level2.setupLevel(); // Setup level2
 
     while (window.isOpen()) {
         // Time between each frame in seconds (delta time)
@@ -169,7 +170,7 @@ void Player::render() {
 
         // Reset powerups bool variables for every 1000 score
         if (level1.get_Boots()->getDeleteStatus() == true && level1.get_Boots()->getHasBeenTrue() == true) {
-            if (getScore() % 1000 < 5) { // Until score = 5000, which is the end of level 1
+            if (getScore() % 1000 < 1000) { // Until score = 1000000
                 level1.get_Boots()->setDeleteStatus(false);
                 level1.get_Boots()->setHasBeenTrue(false);
                 level1.get_Boots()->setHasAppliedEffect(false);
@@ -200,8 +201,16 @@ void Player::render() {
         // Render the background
         window.draw(bg);
 
-        // Render level 1
-        level1.renderLevel1(&window);
+        
+        level1.renderLevel1(&window); // Render level 1
+
+        if (getScore() > 300) {
+            level2.renderLevel2(&window); // render level 2
+        }
+        // } else {
+        //     level3.renderLevel3(&window);
+        // }
+        
 
         //Render the score
         window.draw(scoreText);

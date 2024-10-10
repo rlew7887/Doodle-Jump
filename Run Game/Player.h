@@ -1,11 +1,13 @@
 #ifndef PLAYER_H
 #define PLAYER_H
+
 #include <SFML/Graphics.hpp>
 #include "Platform.h"
 #include "NormalPlat.h"
 #include "BrokenPlat.h"
 #include "gameOver.h"
 #include "Level1.h"
+#include "Level2.h"
 
 using namespace sf;
 

@@ -1,6 +1,7 @@
 #include "Level1.h"  
 
 Level1::Level1() : normalP(nullptr), brokenP(nullptr) {};  
+
 void Level1::setupLevel() {  
    // Initialise platforms  
    normalP = new NormalPlat;  
