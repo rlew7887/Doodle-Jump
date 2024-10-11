@@ -1,7 +1,7 @@
 #include "Player.h"
 #include <iostream>
 
-Player::Player() : score(0){
+Player::Player() : score(0), blackholeActive(false) {
     // Initialize the player 
     if (!sharkPlayer.loadFromFile("sharkPlayer.png")){
         std::cout << "Failed to load" << std::endl; //Check whether image has loaded
@@ -10,8 +10,8 @@ Player::Player() : score(0){
     defaultPlayer.setPosition(Vector2f(250, 700)); //Initialize location to prevent glitching
     sharkPlayer.setSmooth(true); //smooths the outline
     sf::Vector2u textureSize = sharkPlayer.getSize();  //Get the original texture size
-    float scaleX = 100.0f / textureSize.x;  //Calculate scale factor for width
-    float scaleY = 100.0f / textureSize.y;  //Calculate scale factor for height
+    scaleX = 100.0f / textureSize.x;  //Calculate scale factor for width
+    scaleY = 100.0f / textureSize.y;  //Calculate scale factor for height
     defaultPlayer.setScale(scaleX, scaleY);  //Apply the scale to resize the sprite
 
     // Check if successfully loaded
@@ -113,99 +113,114 @@ void Player::render() {
     // Limit framerate to 120 FPS
     window.setFramerateLimit(120);
 
-    float velocity = 0; // Initialize velocity for jumping
+    velocity = 0; // Initialize velocity for jumping
     Clock clock; // Create a clock to measure time between frames
     Level1 level1; // Initialise level1
     Level2 level2; // Initialise level2
+    Level3 level3; // Initialise level3
     level1.setupLevel(); // Setup level1
     level2.setupLevel(); // Setup level2
+    level3.setupLevel(); // Setup level3
 
     while (window.isOpen()) {
         // Time between each frame in seconds (delta time)
         Time elapsed = clock.restart();
         float deltaTime = elapsed.asSeconds();
 
-        this->score++;
-        scoreText.setString(std::to_string(score));
+        if (!blackholeActive) {
+            this->score++;
+            scoreText.setString(std::to_string(score));
 
-        Event event;
-        while (window.pollEvent(event)) {
-            // Close window when 'X' is pressed
-            if (event.type == Event::Closed)
+            Event event;
+            while (window.pollEvent(event)) {
+                // Close window when 'X' is pressed
+                if (event.type == Event::Closed)
+                    window.close();
+            }
+
+            // Movement when specific keys are pressed
+            if (Keyboard::isKeyPressed(Keyboard::Left) || Keyboard::isKeyPressed(Keyboard::A)) {
+                moveLeft(deltaTime);
+            }
+            if (Keyboard::isKeyPressed(Keyboard::Right) || Keyboard::isKeyPressed(Keyboard::D)) {
+                moveRight(deltaTime);
+            }
+
+            // Make the player reappear on the opposite side if they go off-screen
+            if (defaultPlayer.getPosition().x >= 500) {
+                defaultPlayer.setPosition(0, defaultPlayer.getPosition().y);
+            } else if (defaultPlayer.getPosition().x <= -70) {
+                defaultPlayer.setPosition(500, defaultPlayer.getPosition().y);
+            }
+
+            // When player falls out of screen
+            if (onPlatform == false && defaultPlayer.getPosition().y >= 720) {
                 window.close();
-        }
-
-        // Movement when specific keys are pressed
-        if (Keyboard::isKeyPressed(Keyboard::Left) || Keyboard::isKeyPressed(Keyboard::A)) {
-            moveLeft(deltaTime);
-        }
-        if (Keyboard::isKeyPressed(Keyboard::Right) || Keyboard::isKeyPressed(Keyboard::D)) {
-            moveRight(deltaTime);
-        }
-
-        // Make the player reappear on the opposite side if they go off-screen
-        if (defaultPlayer.getPosition().x >= 500) {
-            defaultPlayer.setPosition(0, defaultPlayer.getPosition().y);
-        } else if (defaultPlayer.getPosition().x <= -70) {
-            defaultPlayer.setPosition(500, defaultPlayer.getPosition().y);
-        }
-
-        // When player falls out of screen
-        if (onPlatform == false && defaultPlayer.getPosition().y >= 720) {
-            window.close();
-            GameOver GameOver;
-            GameOver.render(*this);
-        }
-
-
-        // When the player reaches the middle of the window
-        if (defaultPlayer.getPosition().y <= window.getSize().y / 2) {
-            // Shift all platforms down by 2 pixels
-            level1.get_NormalPlat()->shiftDown(2); 
-            level1.get_BrokenPlat()->shiftDown(2);
-
-            // Shift all powerups down by 2 pixels
-            level1.get_Boots()->shiftDown(2,getScore());
-            level2.get_HotAirBalloon()->shiftDown(2,getScore());
-        }
-
-        // Reset powerups bool variables according to score
-        if (level1.get_Boots()->getDeleteStatus() == true && level1.get_Boots()->getHasBeenTrue() == true) {
-            if (getScore() % 600 < 5) { // Until score = 30000
-                level1.get_Boots()->setDeleteStatus(false);
-                level1.get_Boots()->setHasBeenTrue(false);
-                level1.get_Boots()->setHasAppliedEffect(false);
+                GameOver GameOver;
+                GameOver.render(*this);
             }
-        } else if (level2.get_HotAirBalloon()->getDeleteStatus() == true && level2.get_HotAirBalloon()->getHasBeenTrue() == true) {
-            if (getScore() % 1000 < 6) { // Until score = 60000
-                level2.get_HotAirBalloon()->setDeleteStatus(false);
-                level2.get_HotAirBalloon()->setHasBeenTrue(false);
-                level2.get_HotAirBalloon()->setHasAppliedEffect(false);
+
+
+            // When the player reaches the middle of the window
+            if (defaultPlayer.getPosition().y <= window.getSize().y / 2) {
+                // Shift all platforms down by 2 pixels
+                level1.get_NormalPlat()->shiftDown(2); 
+                level1.get_BrokenPlat()->shiftDown(2);
+
+                // Shift all powerups down by 2 pixels
+                level1.get_Boots()->shiftDown(2,getScore());
+                level2.get_HotAirBalloon()->shiftDown(2,getScore());
+                level3.get_Rocket()->shiftDown(2,getScore());
             }
-        }
 
-        // Collision detection for powerups, the powerup disappear as the player collide with it
-        if(defaultPlayer.getGlobalBounds().intersects(level1.get_Boots()->getBoots().getGlobalBounds())) {
-           level1.get_Boots()->setDeleteStatus(true);
-           level1.get_Boots()->setHasBeenTrue(true);
-        }
-        if (defaultPlayer.getGlobalBounds().intersects(level2.get_HotAirBalloon()->getBalloon().getGlobalBounds())) {
-           level2.get_HotAirBalloon()->setDeleteStatus(true);
-           level2.get_HotAirBalloon()->setHasBeenTrue(true);
-        }
+            // Reset powerups bool variables according to score
+            if (level1.get_Boots()->getDeleteStatus() == true && level1.get_Boots()->getHasBeenTrue() == true) {
+                if (getScore() % 600 < 5) { // Until score = 3000
+                    level1.get_Boots()->setDeleteStatus(false);
+                    level1.get_Boots()->setHasBeenTrue(false);
+                    level1.get_Boots()->setHasAppliedEffect(false);
+                }
+            } else if (level2.get_HotAirBalloon()->getDeleteStatus() == true && level2.get_HotAirBalloon()->getHasBeenTrue() == true) {
+                if (getScore() % 700 < 6) { // Until score = 6000
+                    level2.get_HotAirBalloon()->setDeleteStatus(false);
+                    level2.get_HotAirBalloon()->setHasBeenTrue(false);
+                    level2.get_HotAirBalloon()->setHasAppliedEffect(false);
+                }
+            } else if (level3.get_Rocket()->getDeleteStatus() == true && level3.get_Rocket()->getHasBeenTrue() == true) {
+                if (getScore() % 800 < 6) { // Until score = 7200
+                    level3.get_Rocket()->setDeleteStatus(false);
+                    level3.get_Rocket()->setHasBeenTrue(false);
+                    level3.get_Rocket()->setHasAppliedEffect(false);
+                }
+            }
+
+            // Collision detection for powerups, the powerup disappear as the player collide with it
+            if(defaultPlayer.getGlobalBounds().intersects(level1.get_Boots()->getBoots().getGlobalBounds())) {
+            level1.get_Boots()->setDeleteStatus(true);
+            level1.get_Boots()->setHasBeenTrue(true);
+            }
+            if (defaultPlayer.getGlobalBounds().intersects(level2.get_HotAirBalloon()->getBalloon().getGlobalBounds())) {
+            level2.get_HotAirBalloon()->setDeleteStatus(true);
+            level2.get_HotAirBalloon()->setHasBeenTrue(true);
+            }
+            if (defaultPlayer.getGlobalBounds().intersects(level3.get_Rocket()->getRocket().getGlobalBounds())) {
+            level3.get_Rocket()->setDeleteStatus(true);
+            level3.get_Rocket()->setHasBeenTrue(true);
+            }
+            
+            // Update boots effect for normal and broken platforms
+            level1.get_Boots()->updateEffect(level1.get_NormalPlat(), level1.get_Boots()->getPowerUpCollected());
+            level1.get_Boots()->updateEffect(level1.get_BrokenPlat(), level1.get_Boots()->getPowerUpCollected());
+
+            // Update hot air balloon effect
+            level2.get_HotAirBalloon()->updateEffect(level1.get_NormalPlat(), level2.get_HotAirBalloon()->getPowerUpCollected());
+            level2.get_HotAirBalloon()->updateEffect(level1.get_BrokenPlat(), level2.get_HotAirBalloon()->getPowerUpCollected());
+            
+            // Jumping implementation
+            jump(velocity, deltaTime, *level1.get_NormalPlat(), *level1.get_BrokenPlat()); // for level1 normal platform
         
-        // Update boots effect for normal and broken platforms
-        level1.get_Boots()->updateEffect(level1.get_NormalPlat(), level1.get_Boots()->getPowerUpCollected());
-        level1.get_Boots()->updateEffect(level1.get_BrokenPlat(), level1.get_Boots()->getPowerUpCollected());
+        }
 
-        // Update hot air balloon effect
-        level2.get_HotAirBalloon()->updateEffect(level1.get_NormalPlat(), level2.get_HotAirBalloon()->getPowerUpCollected());
-        level2.get_HotAirBalloon()->updateEffect(level1.get_BrokenPlat(), level2.get_HotAirBalloon()->getPowerUpCollected());
-
-
-        // Jumping implementation
-        jump(velocity, deltaTime, *level1.get_NormalPlat(), *level1.get_BrokenPlat()); // for level1 normal platform
-        
         window.clear();
 
         // Render the background
@@ -215,11 +230,42 @@ void Player::render() {
         level1.renderLevel1(&window); // Render level 1
 
         if (getScore() > 500) {
-            level2.renderLevel2(&window); // render level 2 when score reaches 1000
+            level2.renderLevel2(&window); // render level 2 when score reaches 500
         }
-        // } else {
-        //     level3.renderLevel3(&window);
-        // }
+
+        if (getScore() > 700) {
+            level3.renderLevel3(&window); // Render level 3 platforms
+            
+            // Check collision with rocket and render the blackhole
+            if (defaultPlayer.getGlobalBounds().intersects(level3.get_Rocket()->getRocket().getGlobalBounds())) {
+                blackholeActive = true; // Mark blackhole as active
+            }
+
+            // Render blackhole if active
+            if (blackholeActive) {
+                level3.get_Rocket()->renderBlackhole(&window);
+                
+                // Shrinking the player smoothly
+                if (scaleX > 0 && scaleY > 0) {
+                    scaleX -= 0.01f;  // Decrease scale gradually
+                    scaleY -= 0.01f;
+                    if (scaleX < 0) scaleX = 0;  // Prevent negative scale
+                    if (scaleY < 0) scaleY = 0;
+
+                    defaultPlayer.setScale(scaleX, scaleY);
+                    scale_count++;
+                }
+
+        // Once the player is completely gone, trigger the game-over screen
+        if (scale_count == 100) {
+            window.close();
+            GameOver gameOver;
+            gameOver.render(*this);
+        }
+            }
+
+        }
+
         
 
         //Render the score

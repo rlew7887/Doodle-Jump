@@ -24,7 +24,6 @@ class PowerUps {
         // Pure virtual functions
         virtual void setupPowerUp() = 0;
         virtual void applyEffect() = 0;
-        virtual void updateEffect(Platform* platform, bool powerUpCollected) = 0;
         virtual void render(RenderWindow* window) = 0;
 
         // Virtual functions
@@ -36,7 +35,7 @@ class PowerUps {
         virtual void setHasAppliedEffect(bool status);
         virtual bool getPowerUpCollected();
         
-        void shiftDown(float distance, int score);
+        virtual void shiftDown(float distance, int score) = 0;
         Point getPoint();
 
         virtual ~PowerUps() {};

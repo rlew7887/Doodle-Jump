@@ -8,6 +8,7 @@
 #include "gameOver.h"
 #include "Level1.h"
 #include "Level2.h"
+#include "Level3.h"
 
 using namespace sf;
 
@@ -18,6 +19,11 @@ class Player {
     bool onPlatform;
     Font font;
     int score;
+    float velocity;
+    bool blackholeActive;
+    float scaleX;
+    float scaleY;
+    int scale_count = 0;
 
     //gameOver gameOver;
 

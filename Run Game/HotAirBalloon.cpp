@@ -3,6 +3,7 @@
 HotAirBalloon::HotAirBalloon() {
     setupPowerUp();
 }
+
 void HotAirBalloon::setupPowerUp() {
     if (!BalloonTexture.loadFromFile("HotAirBalloon.png")){
         std::cout << "Failed to load" << std::endl; //Check whether image has loaded
@@ -13,6 +14,7 @@ void HotAirBalloon::setupPowerUp() {
     float scaleX = 60.0f / textureSize.x;  //Calculate scale factor for width
     float scaleY = 60.0f / textureSize.y;  //Calculate scale factor for height
     hotAirBalloon.setScale(scaleX, scaleY);  //Apply the scale to resize the sprite
+    hotAirBalloon.setPosition((rand()%420),(rand()%20)); // Initialsie position
 }
 
 void HotAirBalloon::applyEffect() {
@@ -56,14 +58,14 @@ Sprite HotAirBalloon::getBalloon() {
 void HotAirBalloon::shiftDown(float distance, int score) {
      balloon.y += distance;  // shift down balloon position
 
-    // Generate one powerup everytime the score is divisible by 1000
-    if (score % 1000 == 0) {
+    // Generate one powerup everytime the score is divisible by 700
+    if (score % 700 == 0) {
 
         bool validPosition = false; // bool to check if hot air balloon position is valid
     
         while (!validPosition) {
             int tempX = rand() % 420; // Max x = window width - platform width = 500-80 = 420
-            int tempY = rand() % 50;  // Randomize y position (0-50)
+            int tempY = rand() % 20;  // Randomize y position (0-50)
 
             validPosition = true; // Assume position is valid 
 
@@ -78,6 +80,9 @@ void HotAirBalloon::shiftDown(float distance, int score) {
             if (dx < minHorizontalGap && dy < minVerticalGap) {
                 validPosition = false; // set as false
                 break; 
+            } else if (tempY > 20) {
+                validPosition = false;
+                break;
             }
 
             // If position is valid, assign it as the hot air balloon's coordinates

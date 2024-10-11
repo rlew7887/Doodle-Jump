@@ -15,7 +15,7 @@ class HotAirBalloon : public PowerUps {
         HotAirBalloon();
         void setupPowerUp() override;
         void applyEffect() override;
-        void updateEffect(Platform* platform, bool powerUpCollected) override;
+        void updateEffect(Platform* platform, bool powerUpCollected);
         void render(RenderWindow* window) override;
         void shiftDown(float distance, int score);
         Sprite getBalloon();

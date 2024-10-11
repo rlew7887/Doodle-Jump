@@ -13,7 +13,7 @@ void Level3::renderLevel3(RenderWindow* window) {
     }  
 }
 
-// Rocket Level3::getRocket() {return rocket;}
+Rocket* Level3::get_Rocket() {return rocket;}
 
 Level3::~Level3() {
     // delete rocket;

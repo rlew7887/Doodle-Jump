@@ -14,9 +14,11 @@ class Boots : public PowerUps {
 
     public:
         Boots();
+        PowerUps::Point bootsPoint;
         void setupPowerUp() override;
         void applyEffect() override;
-        void updateEffect(Platform* platform, bool powerUpCollected) override;
+        void updateEffect(Platform* platform, bool powerUpCollected);
+        void shiftDown(float distance, int score);
         void render(RenderWindow* window) override;
         Sprite getBoots();
 

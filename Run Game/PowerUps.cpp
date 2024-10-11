@@ -11,16 +11,6 @@ PowerUps::PowerUps() {
     currentStep = 0;
 }
 
-void PowerUps::shiftDown(float distance, int score) {
-    powerups.y += distance; 
-
-    // Generate one powerup everytime the score is divisible by 600
-    if (score % 600 == 0) {
-        powerups.x = rand() % 420;
-        powerups.y = rand() % 50; 
-    }
-}
-
 PowerUps::Point PowerUps::getPoint() {
     return powerups;
 }
