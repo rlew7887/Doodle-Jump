@@ -14,7 +14,7 @@ void Level2::renderLevel2(RenderWindow* window) {
     // }  
     if (hotAirBalloon != nullptr && hotAirBalloon->getDeleteStatus() == false && hotAirBalloon->getHasBeenTrue() == false) {  
       hotAirBalloon->render(window);  
-   }    
+    }    
 }
 
 //    MovingPlat* get_MovingPlat() {return moving;}  

@@ -169,15 +169,15 @@ void Player::render() {
             level2.get_HotAirBalloon()->shiftDown(2,getScore());
         }
 
-        // Reset powerups bool variables for every 1000 score
+        // Reset powerups bool variables according to score
         if (level1.get_Boots()->getDeleteStatus() == true && level1.get_Boots()->getHasBeenTrue() == true) {
-            if (getScore() % 1000 < 3) { // Until score = 10000
+            if (getScore() % 600 < 5) { // Until score = 30000
                 level1.get_Boots()->setDeleteStatus(false);
                 level1.get_Boots()->setHasBeenTrue(false);
                 level1.get_Boots()->setHasAppliedEffect(false);
             }
         } else if (level2.get_HotAirBalloon()->getDeleteStatus() == true && level2.get_HotAirBalloon()->getHasBeenTrue() == true) {
-            if (getScore() % 1000 < 6) { // When score = is between 3000 and 10000
+            if (getScore() % 1000 < 6) { // Until score = 60000
                 level2.get_HotAirBalloon()->setDeleteStatus(false);
                 level2.get_HotAirBalloon()->setHasBeenTrue(false);
                 level2.get_HotAirBalloon()->setHasAppliedEffect(false);
@@ -214,8 +214,8 @@ void Player::render() {
         
         level1.renderLevel1(&window); // Render level 1
 
-        if (getScore() > 300) {
-            level2.renderLevel2(&window); // render level 2
+        if (getScore() > 500) {
+            level2.renderLevel2(&window); // render level 2 when score reaches 1000
         }
         // } else {
         //     level3.renderLevel3(&window);
