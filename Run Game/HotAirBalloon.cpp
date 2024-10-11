@@ -1,13 +1,6 @@
 #include "HotAirBalloon.h"
 
 HotAirBalloon::HotAirBalloon() {
-    // Initialise variables
-    deleteBalloon = false;
-    hasBeenTrue = false;
-    hasAppliedEffect = false;
-    effectCompleted = false;
-    totalSteps = 50;   
-    currentStep = 0;
     setupPowerUp();
 }
 void HotAirBalloon::setupPowerUp() {
@@ -37,7 +30,7 @@ void HotAirBalloon::updateEffect(Platform* platform, bool powerUpCollected) {
     // If the effect is active, gradually shift the platform down
     if (hasAppliedEffect) {
         if (currentStep < totalSteps) {
-            platform->shiftDown(10.0f); // Shift the platform down
+            platform->shiftDown(50.0f); // Shift the platform down
             currentStep++; // Increment
         } else {
             hasAppliedEffect = false; // Set effect as false after moving down
@@ -48,8 +41,10 @@ void HotAirBalloon::updateEffect(Platform* platform, bool powerUpCollected) {
 
 
 void HotAirBalloon::render(RenderWindow* window) {
-    hotAirBalloon.setPosition(powerups.x, powerups.y);
-    window->draw(hotAirBalloon); 
+    if (balloon.x != 0 && balloon.y != 0) {
+        hotAirBalloon.setPosition(balloon.x, balloon.y);
+        window->draw(hotAirBalloon);
+    } 
 }
 
 
@@ -57,28 +52,40 @@ Sprite HotAirBalloon::getBalloon() {
     return hotAirBalloon;
 }
 
-bool HotAirBalloon::getDeleteStatus() {
-    return deleteBalloon;
-}
 
-void HotAirBalloon::setDeleteStatus(bool status) {
-    deleteBalloon = status;
-}
+void HotAirBalloon::shiftDown(float distance, int score) {
+     balloon.y += distance;  // shift down balloon position
 
+    // Generate one powerup everytime the score is divisible by 1000
+    if (score % 1000 == 0) {
 
-bool HotAirBalloon::getHasBeenTrue() {
-    return hasBeenTrue;
-}
+        bool validPosition = false; // bool to check if hot air balloon position is valid
+    
+        while (!validPosition) {
+            int tempX = rand() % 420; // Max x = window width - platform width = 500-80 = 420
+            int tempY = rand() % 50;  // Randomize y position (0-50)
 
-void HotAirBalloon::setHasBeenTrue(bool status) {
-    hasBeenTrue = status;
-}
+            validPosition = true; // Assume position is valid 
 
-bool HotAirBalloon::getHasAppliedEffect() {
-    return hasAppliedEffect;
-}
+            int dx = abs(tempX - powerups.x); // Horizontal distance
+            int dy = abs(tempY - powerups.y); // Vertical distance
 
-void HotAirBalloon::setHasAppliedEffect(bool status) {
-    hasAppliedEffect = status;
+            // Set minimum spacing
+            const int minHorizontalGap = 50; // Min width difference
+            const int minVerticalGap = 50;   // Min height difference
+
+            // Check if the new position is too close to boots position
+            if (dx < minHorizontalGap && dy < minVerticalGap) {
+                validPosition = false; // set as false
+                break; 
+            }
+
+            // If position is valid, assign it as the hot air balloon's coordinates
+            if (validPosition) {
+                balloon.x = tempX;
+                balloon.y = tempY; 
+            }
+        }
+    }
 }
 

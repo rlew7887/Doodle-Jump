@@ -166,14 +166,21 @@ void Player::render() {
 
             // Shift all powerups down by 2 pixels
             level1.get_Boots()->shiftDown(2,getScore());
+            level2.get_HotAirBalloon()->shiftDown(2,getScore());
         }
 
         // Reset powerups bool variables for every 1000 score
         if (level1.get_Boots()->getDeleteStatus() == true && level1.get_Boots()->getHasBeenTrue() == true) {
-            if (getScore() % 1000 < 10) { // Until score = 10000
+            if (getScore() % 1000 < 3) { // Until score = 10000
                 level1.get_Boots()->setDeleteStatus(false);
                 level1.get_Boots()->setHasBeenTrue(false);
                 level1.get_Boots()->setHasAppliedEffect(false);
+            }
+        } else if (level2.get_HotAirBalloon()->getDeleteStatus() == true && level2.get_HotAirBalloon()->getHasBeenTrue() == true) {
+            if (getScore() % 1000 < 6) { // When score = is between 3000 and 10000
+                level2.get_HotAirBalloon()->setDeleteStatus(false);
+                level2.get_HotAirBalloon()->setHasBeenTrue(false);
+                level2.get_HotAirBalloon()->setHasAppliedEffect(false);
             }
         }
 
@@ -182,10 +189,18 @@ void Player::render() {
            level1.get_Boots()->setDeleteStatus(true);
            level1.get_Boots()->setHasBeenTrue(true);
         }
-
-        // Update boots effect
+        if (defaultPlayer.getGlobalBounds().intersects(level2.get_HotAirBalloon()->getBalloon().getGlobalBounds())) {
+           level2.get_HotAirBalloon()->setDeleteStatus(true);
+           level2.get_HotAirBalloon()->setHasBeenTrue(true);
+        }
+        
+        // Update boots effect for normal and broken platforms
         level1.get_Boots()->updateEffect(level1.get_NormalPlat(), level1.get_Boots()->getPowerUpCollected());
         level1.get_Boots()->updateEffect(level1.get_BrokenPlat(), level1.get_Boots()->getPowerUpCollected());
+
+        // Update hot air balloon effect
+        level2.get_HotAirBalloon()->updateEffect(level1.get_NormalPlat(), level2.get_HotAirBalloon()->getPowerUpCollected());
+        level2.get_HotAirBalloon()->updateEffect(level1.get_BrokenPlat(), level2.get_HotAirBalloon()->getPowerUpCollected());
 
 
         // Jumping implementation

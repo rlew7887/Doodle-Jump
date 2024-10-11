@@ -7,12 +7,6 @@
 
 class HotAirBalloon : public PowerUps {
     private:
-        bool deleteBalloon;
-        bool hasBeenTrue;
-        bool hasAppliedEffect;
-        bool effectCompleted;
-        int totalSteps;   
-        int currentStep;
         Sprite hotAirBalloon;
         Texture BalloonTexture;
 
@@ -23,13 +17,8 @@ class HotAirBalloon : public PowerUps {
         void applyEffect() override;
         void updateEffect(Platform* platform, bool powerUpCollected) override;
         void render(RenderWindow* window) override;
+        void shiftDown(float distance, int score);
         Sprite getBalloon();
-        bool getDeleteStatus();
-        void setDeleteStatus(bool status);
-        bool getHasBeenTrue();
-        void setHasBeenTrue(bool status);
-        bool getHasAppliedEffect();
-        void setHasAppliedEffect(bool status);
         ~HotAirBalloon() {}
 
 };

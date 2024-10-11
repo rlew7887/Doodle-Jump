@@ -2,6 +2,7 @@
 #define BOOTS_H
 
 #include "PowerUps.h"
+#include "HotAirBalloon.h"
 #include <iostream>
 
 using namespace sf;
@@ -10,13 +11,6 @@ class Boots : public PowerUps {
     private:
         Sprite boots;
         Texture bootsTexture;
-        bool deleteBoots;
-        bool hasBeenTrue;
-        bool hasAppliedEffect;
-        bool effectCompleted;
-        int totalSteps;   
-        int currentStep;
-        bool powerUpCollected;
 
     public:
         Boots();
@@ -25,13 +19,6 @@ class Boots : public PowerUps {
         void updateEffect(Platform* platform, bool powerUpCollected) override;
         void render(RenderWindow* window) override;
         Sprite getBoots();
-        bool getDeleteStatus();
-        void setDeleteStatus(bool status);
-        bool getHasBeenTrue();
-        void setHasBeenTrue(bool status);
-        bool getHasAppliedEffect();
-        void setHasAppliedEffect(bool status);
-        bool getPowerUpCollected();
 
         ~Boots() {}
 };

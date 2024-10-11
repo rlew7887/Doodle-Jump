@@ -1,13 +1,6 @@
 #include "Boots.h"
 
 Boots::Boots() {
-    // Initialise variables
-    deleteBoots = false;
-    hasBeenTrue = false;
-    hasAppliedEffect = false;
-    effectCompleted = false;
-    totalSteps = 50;   
-    currentStep = 0;
     setupPowerUp();
 }
 
@@ -38,7 +31,7 @@ void Boots::updateEffect(Platform* platform, bool powerUpCollected) {
     // If the effect is active, gradually shift the platform down
     if (hasAppliedEffect) {
         if (currentStep < totalSteps) {
-            platform->shiftDown(10.0f); // Shift the platform down
+            platform->shiftDown(10.0f); // Shift the platform down 
             currentStep++; // Increment
         } else {
             hasAppliedEffect = false; // Set effect as false after moving down
@@ -55,41 +48,5 @@ void Boots::render(RenderWindow* window) {
 
 Sprite Boots::getBoots() {
     return boots;
-}
-
-bool Boots::getDeleteStatus() {
-    return deleteBoots;
-}
-
-void Boots::setDeleteStatus(bool status) {
-    deleteBoots = status;
-}
-
-
-bool Boots::getHasBeenTrue() {
-    return hasBeenTrue;
-}
-
-void Boots::setHasBeenTrue(bool status) {
-    hasBeenTrue = status;
-}
-
-bool Boots::getHasAppliedEffect() {
-    return hasAppliedEffect;
-}
-
-void Boots::setHasAppliedEffect(bool status) {
-    hasAppliedEffect = status;
-}
-
-bool Boots::getPowerUpCollected() {
-    if (
-        getDeleteStatus() == true && 
-        getHasBeenTrue() == true &&
-        getHasAppliedEffect() == false
-    ) {
-        return true;
-    }
-    return false;
 }
 
