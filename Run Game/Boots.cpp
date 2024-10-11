@@ -82,3 +82,14 @@ void Boots::setHasAppliedEffect(bool status) {
     hasAppliedEffect = status;
 }
 
+bool Boots::getPowerUpCollected() {
+    if (
+        getDeleteStatus() == true && 
+        getHasBeenTrue() == true &&
+        getHasAppliedEffect() == false
+    ) {
+        return true;
+    }
+    return false;
+}
+

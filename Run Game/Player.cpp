@@ -182,15 +182,10 @@ void Player::render() {
            level1.get_Boots()->setDeleteStatus(true);
            level1.get_Boots()->setHasBeenTrue(true);
         }
-        
-        // Redefine bool
-        bool powerUpCollected = (level1.get_Boots()->getDeleteStatus() == true && 
-                                level1.get_Boots()->getHasBeenTrue() == true &&
-                                level1.get_Boots()->getHasAppliedEffect() == false);
 
         // Update boots effect
-        level1.get_Boots()->updateEffect(level1.get_NormalPlat(), powerUpCollected);
-        level1.get_Boots()->updateEffect(level1.get_BrokenPlat(), powerUpCollected);
+        level1.get_Boots()->updateEffect(level1.get_NormalPlat(), level1.get_Boots()->getPowerUpCollected());
+        level1.get_Boots()->updateEffect(level1.get_BrokenPlat(), level1.get_Boots()->getPowerUpCollected());
 
 
         // Jumping implementation

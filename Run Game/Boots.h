@@ -16,6 +16,7 @@ class Boots : public PowerUps {
         bool effectCompleted;
         int totalSteps;   
         int currentStep;
+        bool powerUpCollected;
 
     public:
         Boots();
@@ -30,6 +31,8 @@ class Boots : public PowerUps {
         void setHasBeenTrue(bool status);
         bool getHasAppliedEffect();
         void setHasAppliedEffect(bool status);
+        bool getPowerUpCollected();
+
         ~Boots() {}
 };
 
