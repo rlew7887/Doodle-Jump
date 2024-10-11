@@ -2,6 +2,7 @@
 #include <iostream>
 
 Home::Home() {
+    highscore = new HighScore(); // Initialize the highscore object
     font.loadFromFile("./SkeletonFont.ttf"); // load font file
 
     // Check if successfully loaded
@@ -88,8 +89,8 @@ void Home::displayGraphics() {
         //Transition to HighScores page when showLeaderBoard button is pressed
         if (showLeaderBoardBTN->getButtonState() == true) {
             window.close();
-            HighScore highscore;
-            highscore.displayTopScores();
+            Player player;
+            highscore->displayTopScores(player);
         }
         
         // clear the window with black color
@@ -157,5 +158,6 @@ Home::~Home() {
     delete startGameBTN;
     delete showTutorialBTN;
     delete showLeaderBoardBTN;
+    delete highscore;
 }
 

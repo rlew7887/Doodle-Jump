@@ -89,7 +89,6 @@ void GameOver::render(Player& player){
         if (event.type == sf::Event::MouseButtonPressed && event.mouseButton.button == sf::Mouse::Left) {
                 if (playAgainBTN->isMouseOver(Vector2f(Mouse::getPosition(window).x, Mouse::getPosition(window).y))) {
                     //when play again button is pressed, render a new game
-                    //setPosition?
                     window.close();
                     Player newGame;
                     newGame.render();
@@ -104,7 +103,7 @@ void GameOver::render(Player& player){
                     //when leaderboard button is pressed, render leaderboard
                     window.close();
                     HighScore highscore;
-                    highscore.displayTopScores();
+                    highscore.displayTopScores(player);
                 }
             }
 

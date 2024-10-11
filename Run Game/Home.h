@@ -7,11 +7,14 @@
 
 using namespace sf;
 
+class HighScore;
+
 class Home {
     private:
         Button* startGameBTN;
         Button* showTutorialBTN;
         Button* showLeaderBoardBTN;
+        HighScore* highscore;
 
         RectangleShape tutorialPopup;
         Text tutorialText;

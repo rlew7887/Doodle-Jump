@@ -4,8 +4,8 @@
 
 using namespace std;
 
-HighScore::HighScore(){
-    highScores = new int[10]{0};
+HighScore::HighScore():scoreCount(0){
+    highScores = new int[10]{};
     font.loadFromFile("./SkeletonFont.ttf"); // load font file
 
     // Check if successfully loaded
@@ -19,18 +19,23 @@ void HighScore::home(){
     this->homeBTN = new Button(170,670,90,40,this->font,"Home",Color(199,214,255,200),Color(135,147,176,255),Color(98,115,140,200));
 }
 
+// HighScore& HighScore::getInstance(){
+//     static HighScore instance; // Guaranteed to be destroyed and instantiated on first use
+//     return instance;
+// }
+
 void HighScore::addScore(int score){
     if (score > highScores[9]) { //Compare with the lowest score in the top 10
         highScores[9] = score; //Replace the lowest score with the new score
 
         //Sort the scores in descending order
-        for (int i = 8; i >= 0; i--) { //Need to find more efficient sorting method
+        for (int i = 8; i >= 0; i--) {
             if (highScores[i] < highScores[i + 1]) {
                 std::swap(highScores[i], highScores[i + 1]); //Swap if the current score is lower than the next one
             }
         }
 
-        this->saveScoresToFile(); //Need to test
+        this->saveScoresToFile();
     }
 }
 
@@ -39,6 +44,27 @@ int HighScore::getTopScore(){ //Function to get highest score and display in gam
 }
 
 void HighScore::saveScoresToFile(){
+    // // Open file in read mode
+    // ifstream infile("HighScores.txt");
+    // if (!infile.is_open()) {
+    //     std::cout << "Failed to open file for reading" << std::endl;
+    //     return;
+    // }
+
+    // // Read the high scores from the file into the array
+    // int score;
+    // int i = 0;
+    // while (infile >> score && i < 10) {
+    //     highScores[i] = score; // Store score in array
+    //     i++; // Increment the index to store the next score
+    // }
+
+    // infile.close();
+
+    // // Ensure the remaining positions are set to zero if fewer than 10 scores were read
+    // for (; i < 10; i++) {
+    //     highScores[i] = 0;
+    // }
     // Open file in write mode
     ofstream outfile("HighScores.txt");
     if (!outfile.is_open()) {
@@ -69,9 +95,9 @@ void HighScore::readScoresToFile(){
 
 }
 
-void HighScore::displayTopScores(){ //Player& player tells the code that we are reading from an existing player window
-    //score = player.getScore()
-    //addScore();
+void HighScore::displayTopScores(Player& player){
+    int score = player.getScore();
+    addScore(score);
     readScoresToFile(); //Load scores from file to draw
 
     VideoMode desktop = VideoMode::getDesktopMode(); //Get device screen size
