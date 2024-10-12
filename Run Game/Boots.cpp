@@ -14,7 +14,7 @@ void Boots::setupPowerUp() {
     float scaleX = 60.0f / textureSize.x;  //Calculate scale factor for width
     float scaleY = 60.0f / textureSize.y;  //Calculate scale factor for height
     boots.setScale(scaleX, scaleY);  //Apply the scale to resize the sprite
-    boots.setPosition((rand()%420),(rand()%20)); // Initialise position
+    boots.setPosition((100),(0)); // Initialise position
 }
 
 void Boots::applyEffect() {

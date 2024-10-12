@@ -8,7 +8,6 @@ using namespace sf;
 
 class PowerUps {
     protected:
-        struct Point {int x, y;};
         bool deletePowerUp;
         bool hasBeenTrue;
         bool hasAppliedEffect;
@@ -19,6 +18,7 @@ class PowerUps {
         
 
     public:
+        struct Point {int x, y;};
         Point powerups;
         PowerUps();
         // Pure virtual functions

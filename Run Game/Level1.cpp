@@ -1,6 +1,6 @@
 #include "Level1.h"  
 
-Level1::Level1() : normalP(nullptr), brokenP(nullptr) {};  
+Level1::Level1() : normalP(nullptr), brokenP(nullptr), boot(nullptr) {};  
 
 void Level1::setupLevel() {  
    // Initialise platforms  

@@ -15,6 +15,7 @@ void Rocket::setupPowerUp() {
     float scaleX = 100.0f / textureSize.x;  //Calculate scale factor for width
     float scaleY = 100.0f / textureSize.y;  //Calculate scale factor for height
     rocket.setScale(scaleX, scaleY);  //Apply the scale to resize the sprite
+    rocket.setPosition(100,0); // Initialise position
 
     // Setup blackhole
     blackholeDrawn = false;
