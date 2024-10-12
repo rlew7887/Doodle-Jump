@@ -21,6 +21,10 @@ Player::Player() : score(0), blackholeActive(false), scale_count(0) {
     }
 }
 
+void Player::incrementScore(int amount) {  
+   score += amount;  
+}
+
 void Player::moveLeft(float FPS) {
     // Get current position 
     Vector2f position = defaultPlayer.getPosition();
@@ -37,7 +41,7 @@ void Player::moveRight(float FPS) {
     defaultPlayer.setPosition(position);
 }
 
-void Player::jump(float& velocity, float FPS, Platform& platform, BrokenPlat& brokenPlatform) {
+void Player::jump(float& velocity, float FPS, Platform& platform, BrokenPlat& brokenPlatform, MovingPlat& movingPlatform) {
     onPlatform = false;
 
     // Get current position
@@ -56,6 +60,10 @@ void Player::jump(float& velocity, float FPS, Platform& platform, BrokenPlat& br
         jumpY = maxHeight; // Restrict the player to maxHeight
     }
 
+    if (onPlatform) {  
+   incrementScore(10); // Award 10 points for landing on a platform  
+}  
+
     // Collision detection with platforms, as before
     FloatRect playerBounds = defaultPlayer.getGlobalBounds();
     float playerBottom = playerBounds.top + playerBounds.height;
@@ -70,9 +78,27 @@ void Player::jump(float& velocity, float FPS, Platform& platform, BrokenPlat& br
                 jumpY = platformTop - playerBounds.height;
                 velocity = -9;
                 onPlatform = true;
+                incrementScore(1);
             }
         }
     }
+
+    // Check collision with moving platforms  
+   for (int i = 0; i < 3; i++) {  
+      float platformTop = movingPlatform.plat[i].y;  
+      float platformBottom = platformTop + 20;  
+      if (playerBottom >= platformTop && playerBottom <= platformBottom && velocity > 0) {  
+        if ((defaultPlayer.getPosition().x >= movingPlatform.plat[i].x ||  
+            defaultPlayer.getPosition().x + 50 >= movingPlatform.plat[i].x) &&  
+           (defaultPlayer.getPosition().x <= movingPlatform.plat[i].x + 80 ||  
+            defaultPlayer.getPosition().x + 50 <= movingPlatform.plat[i].x + 80)) {  
+           jumpY = platformTop - playerBounds.height;  
+           velocity = -9;  
+           onPlatform = true;  
+           incrementScore(1);
+        }  
+      }  
+   }  
 
     // Update the player's position after applying the restriction
     defaultPlayer.setPosition(jumpX, jumpY);
@@ -171,6 +197,8 @@ void Player::render() {
                 level1.get_Boots()->shiftDown(2,getScore());
                 level2.get_HotAirBalloon()->shiftDown(2,getScore());
                 level3.get_Rocket()->shiftDown(2,getScore());
+
+                incrementScore(1);
             }
 
             // Reset powerups bool variables according to score
@@ -229,6 +257,7 @@ void Player::render() {
         level1.renderLevel1(&window); // Render level 1
 
         if (getScore() > 500) {
+            level2.updateLevel2(deltaTime); 
             level2.renderLevel2(&window); // render level 2 when score reaches 500
         }
         if (getScore() > 700) {
@@ -273,7 +302,6 @@ void Player::render() {
                     gameOver.render(*this);
                 }
             }
-
         }
 
         //Render the score
@@ -285,6 +313,7 @@ void Player::render() {
         window.display();
     }
 }
+
 
 
 Vector2f Player::get_Position() {

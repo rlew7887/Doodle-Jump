@@ -39,6 +39,7 @@ class Player {
     int getScore();
 
     void render();
+    void incrementScore(int amount);
 
     bool getOnPlatform();
 
