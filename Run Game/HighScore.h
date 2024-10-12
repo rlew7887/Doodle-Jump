@@ -13,9 +13,10 @@ protected:
     int scoreCount;
     int* highScores;
     Button* homeBTN;
+    static HighScore* instance;
 public:
     HighScore();
-    //static HighScore& getInstance();
+    static HighScore* getInstance();
     void home();
     void addScore(int score); //add new score to the leaderboard
     int getTopScore(); //Get highest score from array

@@ -2,7 +2,9 @@
 #include <iostream>
 
 Home::Home() {
-    highscore = new HighScore(); // Initialize the highscore object
+    highscore = HighScore::getInstance();
+    //highscore = new HighScore(); // Initialize the highscore object
+    //currentState = Homepage;
     font.loadFromFile("./SkeletonFont.ttf"); // load font file
 
     // Check if successfully loaded
@@ -11,6 +13,10 @@ Home::Home() {
             std::cout << "File failed to load" << std::endl;
     }
 }
+
+// void Home::setGameState(GameState newState){
+//     currentState = newState;
+// }
 
 void Home::displayGraphics() {
     // Get the device screen size
@@ -25,41 +31,40 @@ void Home::displayGraphics() {
     window.setPosition(Vector2i(windowPosX, windowPosY));
 
     // Make title
-        Text title;
-        title.setFont(this->font); // set font
-        title.setString("Doodle Jump"); // set the string to display
-        title.setCharacterSize(100); // set the character size
-        title.setFillColor(Color::Black); // set the color
-        title.setStyle(Text::Bold); // set the text style
-        title.setPosition(230,30);
+    Text title;
+    title.setFont(this->font); // set font
+    title.setString("Doodle Jump"); // set the string to display
+    title.setCharacterSize(100); // set the character size
+    title.setFillColor(Color::Black); // set the color
+    title.setStyle(Text::Bold); // set the text style
+    title.setPosition(230,30);
 
 
 
     // Make background 
-        Texture homeBackground;
-        homeBackground.loadFromFile("grid-bg.jpg"); // Load file
-        if (!homeBackground.loadFromFile("grid-bg.jpg")) {
-            std::cout << "Texture file failed to load" << std::endl;
-        }
+    Texture homeBackground;
+    homeBackground.loadFromFile("grid-bg.jpg"); // Load file
+    if (!homeBackground.loadFromFile("grid-bg.jpg")) {
+        std::cout << "Texture file failed to load" << std::endl;
+    }
 
-        Sprite background(homeBackground);
-        Vector2u windowSize = window.getSize(); //get window size
-        Vector2u textureSize = homeBackground.getSize(); //get image size
-        //Calculate scale factors to make image fit to window
-        float scaleX = (1.0f * windowSize.x) / textureSize.x;
-        float scaleY = (1.0f * windowSize.y) / textureSize.y;
-        background.setScale(scaleX, scaleY); //scale the sprite
+    Sprite background(homeBackground);
+    Vector2u windowSize = window.getSize(); //get window size
+    Vector2u textureSize = homeBackground.getSize(); //get image size
+    //Calculate scale factors to make image fit to window
+    float scaleX = (1.0f * windowSize.x) / textureSize.x;
+    float scaleY = (1.0f * windowSize.y) / textureSize.y;
+    background.setScale(scaleX, scaleY); //scale the sprite
         
-        // Initialise home page buttons;
-        startGame();
-        showLeaderBoard();
-        showTutorial();
+    // Initialise home page buttons;
+    startGame();
+    showLeaderBoard();
+    showTutorial();
 
-        // Initialise tutorial popup
-        bool showPopup = false;
+    // Initialise tutorial popup
+    bool showPopup = false;
 
-    while (window.isOpen())
-    {
+    while (window.isOpen()){
         Event event;
         while (window.pollEvent(event))
         {
@@ -68,6 +73,7 @@ void Home::displayGraphics() {
                 window.close();
         }
 
+//        if(currentState == Homepage){
         // Update button state according to mouse position
         Vector2f mousePos = window.mapPixelToCoords(Mouse::getPosition(window));
         startGameBTN->updateButton(mousePos);
@@ -81,6 +87,7 @@ void Home::displayGraphics() {
 
         // Transition to game page when start game button is pressed
         if (startGameBTN->getButtonState() == true) {
+            //setGameState(Game);
             window.close();
             Player newGame;
             newGame.render();
@@ -88,14 +95,15 @@ void Home::displayGraphics() {
 
         //Transition to HighScores page when showLeaderBoard button is pressed
         if (showLeaderBoardBTN->getButtonState() == true) {
+            //setGameState(Leaderboard);
             window.close();
             Player player;
             highscore->displayTopScores(player);
         }
-        
+            
         // clear the window with black color
-        window.clear(Color::Black);
-        
+        window.clear();
+            
         window.draw(background);
         window.draw(title);
 
@@ -104,21 +112,23 @@ void Home::displayGraphics() {
         showLeaderBoardBTN->render(&window);
         showTutorialBTN->render(&window);
 
-        // Draw tutorial popup
-        if (showPopup == true) {
-            window.draw(tutorialPopup);
-            window.draw(tutorialText);
+            // Draw tutorial popup
+            if (showPopup == true) {
+                window.draw(tutorialPopup);
+                window.draw(tutorialText);
 
-            // Quit the popup if 'x' is pressed
-            if (Keyboard::isKeyPressed(Keyboard::X)) {
-            showPopup = false;
+                // Quit the popup if 'x' is pressed
+                if (Keyboard::isKeyPressed(Keyboard::X)) {
+                showPopup = false;
+                }
             }
-        }
-
+        // else if(currentState == Leaderboard){
+        //     Player player;
+        //     highscore->displayTopScores(player);
+        // }
         // end the current frame
         window.display();
-}
-
+    }
 }
 
 

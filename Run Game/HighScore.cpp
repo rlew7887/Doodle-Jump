@@ -19,10 +19,16 @@ void HighScore::home(){
     this->homeBTN = new Button(170,670,90,40,this->font,"Home",Color(199,214,255,200),Color(135,147,176,255),Color(98,115,140,200));
 }
 
-// HighScore& HighScore::getInstance(){
-//     static HighScore instance; // Guaranteed to be destroyed and instantiated on first use
-//     return instance;
-// }
+// Initialize the static instance pointer to nullptr
+HighScore* HighScore::instance = nullptr;
+
+// Method to get the single instance of HighScore
+HighScore* HighScore::getInstance() {
+    if (instance == nullptr) {
+        instance = new HighScore();
+    }
+    return instance;
+}
 
 void HighScore::addScore(int score){
     if (score > highScores[9]) { //Compare with the lowest score in the top 10

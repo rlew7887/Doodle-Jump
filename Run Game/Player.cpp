@@ -172,7 +172,7 @@ void Player::render() {
                 moveRight(deltaTime);
             }
 
-            // Make the player reappear on the opposite side if they go off-screen
+            //Make the player reappear on the opposite side if they go off-screen
             if (defaultPlayer.getPosition().x >= 500) {
                 defaultPlayer.setPosition(0, defaultPlayer.getPosition().y);
             } else if (defaultPlayer.getPosition().x <= -70) {
@@ -214,7 +214,8 @@ void Player::render() {
                     level2.get_HotAirBalloon()->setHasBeenTrue(false);
                     level2.get_HotAirBalloon()->setHasAppliedEffect(false);
                 }
-            } else if (level3.get_Rocket()->getDeleteStatus() == true && level3.get_Rocket()->getHasBeenTrue() == true) {
+            } 
+            else if (level3.get_Rocket()->getDeleteStatus() == true && level3.get_Rocket()->getHasBeenTrue() == true) {
                 if (getScore() % 800 < 6) { // Until score = 7200
                     level3.get_Rocket()->setDeleteStatus(false);
                     level3.get_Rocket()->setHasBeenTrue(false);
@@ -313,6 +314,7 @@ void Player::render() {
         window.display();
     }
 }
+
 
 
 
