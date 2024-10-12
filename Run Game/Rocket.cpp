@@ -52,23 +52,13 @@ void Rocket::shiftDown(float distance, int score) {
         bool validPosition = false; // bool to check if rocket position is valid
     
         while (!validPosition) {
-            int tempX = rand() % 420; // Max x = window width - platform width = 500-80 = 420
+            int tempX = rand() % 420; // Randomize x position (0-420)
             int tempY = rand() % 20;  // Randomize y position (0-50)
 
             validPosition = true; // Assume position is valid 
 
-            int dx = abs(tempX - powerups.x); // Horizontal distance
-            int dy = abs(tempY - powerups.y); // Vertical distance
-
-            // Set minimum spacing
-            const int minHorizontalGap = 50; // Min width difference
-            const int minVerticalGap = 50;   // Min height difference
-
-            // Check if the new position is too close to boots position
-            if (dx < minHorizontalGap && dy < minVerticalGap) {
-                validPosition = false; // set as false
-                break; 
-            } else if (tempY > 20) {
+            // Check if the new position is within the 0-20 range
+            if (tempY > 20) {
                 validPosition = false; // set as false
                 break; 
             }
