@@ -14,3 +14,5 @@ public:
    void update(float deltaTime);  
    void render(RenderWindow* target) override;  
 };
+
+#endif
