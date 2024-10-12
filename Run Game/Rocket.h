@@ -10,6 +10,7 @@ class Rocket : public PowerUps {
         Texture rocketTexture;
         CircleShape blackhole;
         float blackholeRadius;
+        bool blackholeDrawn;
 
     public:
         PowerUps::Point rocketPoint;
@@ -20,6 +21,7 @@ class Rocket : public PowerUps {
         void renderBlackhole(RenderWindow* window);
         void shiftDown(float distance, int score);
         Sprite getRocket();
+        bool getBlackholeDrawn();
 
         ~Rocket() {}
 };

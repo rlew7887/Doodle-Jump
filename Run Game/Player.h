@@ -23,7 +23,7 @@ class Player {
     bool blackholeActive;
     float scaleX;
     float scaleY;
-    int scale_count = 0;
+    int scale_count;
 
     //gameOver gameOver;
 

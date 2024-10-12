@@ -17,6 +17,7 @@ void Rocket::setupPowerUp() {
     rocket.setScale(scaleX, scaleY);  //Apply the scale to resize the sprite
 
     // Setup blackhole
+    blackholeDrawn = false;
     blackholeRadius = 100;
     blackhole.setFillColor(Color::Black);
     blackhole.setRadius(blackholeRadius);
@@ -31,7 +32,7 @@ void Rocket::applyEffect() {
 
 void Rocket::render(RenderWindow* window) {
     if (rocketPoint.x != 0 && rocketPoint.y != 0) {
-        rocket.setPosition(rocketPoint.x / 2, rocketPoint.y / 2);
+        rocket.setPosition(rocketPoint.x, rocketPoint.y);
         window->draw(rocket);
     } 
 }
@@ -39,6 +40,7 @@ void Rocket::render(RenderWindow* window) {
 void Rocket::renderBlackhole(RenderWindow* window) {
     blackhole.setPosition(rocketPoint.x, rocketPoint.y);
     window->draw(blackhole);
+    blackholeDrawn = true;
 }
 
 void Rocket::shiftDown(float distance, int score) {
@@ -81,3 +83,5 @@ void Rocket::shiftDown(float distance, int score) {
 }
 
 Sprite Rocket::getRocket() {return rocket;}
+
+bool Rocket::getBlackholeDrawn() {return blackholeDrawn;}

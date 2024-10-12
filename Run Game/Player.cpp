@@ -1,7 +1,7 @@
 #include "Player.h"
 #include <iostream>
 
-Player::Player() : score(0), blackholeActive(false) {
+Player::Player() : score(0), blackholeActive(false), scale_count(0) {
     // Initialize the player 
     if (!sharkPlayer.loadFromFile("sharkPlayer.png")){
         std::cout << "Failed to load" << std::endl; //Check whether image has loaded
@@ -226,47 +226,55 @@ void Player::render() {
         // Render the background
         window.draw(bg);
 
-        
         level1.renderLevel1(&window); // Render level 1
 
         if (getScore() > 500) {
             level2.renderLevel2(&window); // render level 2 when score reaches 500
         }
-
         if (getScore() > 700) {
-            level3.renderLevel3(&window); // Render level 3 platforms
+            level3.renderLevel3(&window); // Render level 3 when score reaches 700
             
+            // Initialise temp player positions
+            int temp_player_X = 0;
+            int temp_player_Y = 0;
+
             // Check collision with rocket and render the blackhole
             if (defaultPlayer.getGlobalBounds().intersects(level3.get_Rocket()->getRocket().getGlobalBounds())) {
                 blackholeActive = true; // Mark blackhole as active
+
+                // Assign to player position when collided with the rocket
+                temp_player_X = defaultPlayer.getPosition().x;
+                temp_player_Y = defaultPlayer.getPosition().y;
             }
 
             // Render blackhole if active
             if (blackholeActive) {
-                level3.get_Rocket()->renderBlackhole(&window);
+                level3.get_Rocket()->renderBlackhole(&window); // draw blackhole
                 
-                // Shrinking the player smoothly
-                if (scaleX > 0 && scaleY > 0) {
-                    scaleX -= 0.01f;  // Decrease scale gradually
-                    scaleY -= 0.01f;
-                    if (scaleX < 0) scaleX = 0;  // Prevent negative scale
-                    if (scaleY < 0) scaleY = 0;
+                // Check if blackhole is drawn
+                if (level3.get_Rocket()->getBlackholeDrawn() == true) {
+                    // Shrinking the player smoothly
+                    if (scaleX > 0 && scaleY > 0) {
+                        scaleX -= 0.02f;  // Decrease scale gradually
+                        scaleY -= 0.02f;
+                        if (scaleX < 0) scaleX = 0;  // Prevent negative scale
+                        if (scaleY < 0) scaleY = 0;
 
-                    defaultPlayer.setScale(scaleX, scaleY);
-                    scale_count++;
+                        defaultPlayer.setScale(scaleX, scaleY);
+                        defaultPlayer.setPosition(temp_player_X,temp_player_Y); // Ensure player gets scaled down in the same position
+                        scale_count++; // Increment
+                    }
                 }
 
-        // Once the player is completely gone, trigger the game-over screen
-        if (scale_count == 100) {
-            window.close();
-            GameOver gameOver;
-            gameOver.render(*this);
-        }
+                // Once the player is completely gone, trigger the game-over screen
+                if (scale_count == 80) {
+                    window.close();
+                    GameOver gameOver;
+                    gameOver.render(*this);
+                }
             }
 
         }
-
-        
 
         //Render the score
         window.draw(scoreText);
@@ -282,4 +290,3 @@ void Player::render() {
 Vector2f Player::get_Position() {
     return defaultPlayer.getPosition();
 }
-//Player::~Player() {delete gameOver;}
