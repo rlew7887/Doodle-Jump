@@ -19,7 +19,7 @@ class Rocket : public PowerUps {
         void applyEffect() override;
         void render(RenderWindow* window) override;
         void renderBlackhole(RenderWindow* window);
-        void shiftDown(float distance, int score);
+        void shiftDown(float distance, int score) override;
         Sprite getRocket();
         bool getBlackholeDrawn();
 

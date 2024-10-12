@@ -18,7 +18,7 @@ class Boots : public PowerUps {
         void setupPowerUp() override;
         void applyEffect() override;
         void updateEffect(Platform* platform, bool powerUpCollected);
-        void shiftDown(float distance, int score);
+        void shiftDown(float distance, int score) override;
         void render(RenderWindow* window) override;
         Sprite getBoots();
 
