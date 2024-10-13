@@ -1,17 +1,18 @@
 #include "HighScore.h"
 #include <iostream>
 #include <fstream> 
+#include <algorithm>
 
 using namespace std;
 
-HighScore::HighScore():scoreCount(0){
-    highScores = new int[10]{};
+HighScore::HighScore():capacity(10), size(0){
+    highScores = new int[capacity]{0};
     font.loadFromFile("./SkeletonFont.ttf"); // load font file
 
     // Check if successfully loaded
     if (!font.loadFromFile("./SkeletonFont.ttf"))
     {
-            std::cout << "File failed to load" << std::endl;
+        std::cout << "File failed to load" << std::endl;
     }
 }
 
@@ -19,72 +20,57 @@ void HighScore::home(){
     this->homeBTN = new Button(170,670,90,40,this->font,"Home",Color(199,214,255,200),Color(135,147,176,255),Color(98,115,140,200));
 }
 
-// Initialize the static instance pointer to nullptr
-HighScore* HighScore::instance = nullptr;
-
-// Method to get the single instance of HighScore
-HighScore* HighScore::getInstance() {
-    if (instance == nullptr) {
-        instance = new HighScore();
-    }
-    return instance;
-}
-
-void HighScore::addScore(int score){
-    if (score > highScores[9]) { //Compare with the lowest score in the top 10
-        highScores[9] = score; //Replace the lowest score with the new score
-
-        //Sort the scores in descending order
-        for (int i = 8; i >= 0; i--) {
-            if (highScores[i] < highScores[i + 1]) {
-                std::swap(highScores[i], highScores[i + 1]); //Swap if the current score is lower than the next one
-            }
-        }
-
-        this->saveScoresToFile();
-    }
-}
-
 int HighScore::getTopScore(){ //Function to get highest score and display in gameOver?
     return highScores[0];
 }
 
-void HighScore::saveScoresToFile(){
-    // // Open file in read mode
-    // ifstream infile("HighScores.txt");
-    // if (!infile.is_open()) {
-    //     std::cout << "Failed to open file for reading" << std::endl;
-    //     return;
-    // }
+void HighScore::addScore(int score){
+    saveScoresToFile(score);
+    readScoresFromFile();
+    // If the dynamic array is full, check if the new score should replace the lowest one
+    if (size == capacity && score > highScores[size - 1]) {
+        highScores[size - 1] = score; // Replace the lowest score
+    }
 
-    // // Read the high scores from the file into the array
-    // int score;
-    // int i = 0;
-    // while (infile >> score && i < 10) {
-    //     highScores[i] = score; // Store score in array
-    //     i++; // Increment the index to store the next score
-    // }
+    // Sort the scores in descending order using std::sort
+    std::sort(highScores, highScores + size, std::greater<int>());
 
-    // infile.close();
+    // Ensure that the size doesn't exceed the capacity (10)
+    size = min(size, capacity);
 
-    // // Ensure the remaining positions are set to zero if fewer than 10 scores were read
-    // for (; i < 10; i++) {
-    //     highScores[i] = 0;
-    // }
+    //Write sorted scores to file
+    saveSortedScores();
+}
+
+void HighScore::saveSortedScores(){
     // Open file in write mode
-    ofstream outfile("HighScores.txt");
+    ofstream outfile("HighScores.txt", ios::app);
+    if (!outfile.is_open()) {
+        cout << "Failed to open file for writing" << endl;
+    }
+
+    // Write the top scores to the file
+    for (int i = 0; i < size; ++i) {
+        outfile << highScores[i] << "\n";
+    }
+
+    outfile.close();
+}
+
+void HighScore::saveScoresToFile(int score){ //Pass player object here instead of render() function
+    // Open file in write mode
+    ofstream outfile("HighScores.txt", ios::app);
     if (!outfile.is_open()) {
         cout << "Failed to open file for writing" << endl;
     }
 
     // Writing the highscores to the file
-    for (int i = 0; i < 10; ++i) {
-        outfile << highScores[i] << "\n ";
-    }
+    outfile << score << "\n ";
     outfile.close();
 }
 
-void HighScore::readScoresToFile(){
+void HighScore::readScoresFromFile(){
+    int size = 0;
     //Open file in read mode
     ifstream infile("HighScores.txt");
     if (!infile.is_open()) {
@@ -92,9 +78,9 @@ void HighScore::readScoresToFile(){
     }
 
     // Read the high scores from the file into the array
-    int i = 0;
-    while (infile >> highScores[i] && i < 10) {
-        i++; // Increment the index to store the next score
+    int score;
+    while (infile >> score && size < 10) {
+        highScores[size++] = score; //Append score to array
     }
 
     infile.close();
@@ -104,7 +90,6 @@ void HighScore::readScoresToFile(){
 void HighScore::displayTopScores(Player& player){
     int score = player.getScore();
     addScore(score);
-    readScoresToFile(); //Load scores from file to draw
 
     VideoMode desktop = VideoMode::getDesktopMode(); //Get device screen size
     RenderWindow window(VideoMode(500, 800), "Leaderboard");
@@ -141,8 +126,7 @@ void HighScore::displayTopScores(Player& player){
     scoreText.setCharacterSize(40); 
     scoreText.setFillColor(Color::Black);
 
-    //Initialise buttons
-    home();
+    home(); //Initialise button
 
     while (window.isOpen()){
         Event event;
@@ -150,19 +134,19 @@ void HighScore::displayTopScores(Player& player){
                 if (event.type == Event::Closed)
                     window.close();
         }
-
         // Update button state according to mouse position
         homeBTN->updateButton(Vector2f(Mouse::getPosition(window).x, Mouse::getPosition(window).y));
 
         //Check if left mouse button is pressed
         if (event.type == sf::Event::MouseButtonPressed && event.mouseButton.button == sf::Mouse::Left) {
-                if (homeBTN->isMouseOver(Vector2f(Mouse::getPosition(window).x, Mouse::getPosition(window).y))) {
-                    //when home button is pressed, render homescreen
-                    window.close();
-                    Home home;
-                    home.displayGraphics();
-                }
+            if (homeBTN->isMouseOver(Vector2f(Mouse::getPosition(window).x, Mouse::getPosition(window).y))) {
+                //when home button is pressed, render homescreen
+                window.close();
+                Home home; //why does this sometimes render player?
+                window.setPosition(Vector2i(windowPosX, windowPosY));
+                home.displayGraphics();
             }
+        }
 
         window.clear();
         window.draw(bg); //draw background image

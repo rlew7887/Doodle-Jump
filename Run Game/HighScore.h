@@ -9,21 +9,21 @@ class Player;
 
 class HighScore{
 protected:
-    Font font;
-    int scoreCount;
     int* highScores;
+    int capacity;
+    int size;
+    Font font;
     Button* homeBTN;
-    static HighScore* instance;
 public:
     HighScore();
-    static HighScore* getInstance();
     void home();
-    void addScore(int score); //add new score to the leaderboard
+    void addScore(int score);
     int getTopScore(); //Get highest score from array
-    void saveScoresToFile(); //Write highscores to txt file
-    void readScoresToFile(); //Read highscores from txt file
+    void saveScoresToFile(int score); //Write highscores to txt file
+    void saveSortedScores();
+    void readScoresFromFile(); //Read highscores from txt file
     void displayTopScores(Player& player);
     ~HighScore();
 };
 
-#endif
+#endif 

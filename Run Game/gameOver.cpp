@@ -91,12 +91,14 @@ void GameOver::render(Player& player){
                     //when play again button is pressed, render a new game
                     window.close();
                     Player newGame;
+                    window.setPosition(Vector2i(windowPosX, windowPosY));
                     newGame.render();
                 }
                 if (homeBTN->isMouseOver(Vector2f(Mouse::getPosition(window).x, Mouse::getPosition(window).y))) {
                     //when home button is pressed, render homescreen
                     window.close();
                     Home home;
+                    window.setPosition(Vector2i(windowPosX, windowPosY));
                     home.displayGraphics();
                 }
                 if (LeaderboardBTN->isMouseOver(Vector2f(Mouse::getPosition(window).x, Mouse::getPosition(window).y))) {
@@ -104,6 +106,7 @@ void GameOver::render(Player& player){
                     window.close();
                     HighScore highscore;
                     highscore.displayTopScores(player);
+                    window.setPosition(Vector2i(windowPosX, windowPosY));
                 }
             }
 

@@ -21,7 +21,6 @@ class GameOver{
     void playAgain();
     void home();
     void Leaderboard();
-    //void gameOver();
     void render(Player& player);
     ~GameOver(); //destructor
 };
