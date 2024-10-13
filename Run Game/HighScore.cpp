@@ -44,7 +44,7 @@ void HighScore::addScore(int score){
 
 void HighScore::saveSortedScores(){
     // Open file in write mode
-    ofstream outfile("HighScores.txt", ios::app);
+    ofstream outfile("HighScores.txt", ios::out);
     if (!outfile.is_open()) {
         cout << "Failed to open file for writing" << endl;
     }
@@ -70,7 +70,7 @@ void HighScore::saveScoresToFile(int score){ //Pass player object here instead o
 }
 
 void HighScore::readScoresFromFile(){
-    int size = 0;
+    size = 0;
     //Open file in read mode
     ifstream infile("HighScores.txt");
     if (!infile.is_open()) {
@@ -84,7 +84,6 @@ void HighScore::readScoresFromFile(){
     }
 
     infile.close();
-
 }
 
 void HighScore::displayTopScores(Player& player){
