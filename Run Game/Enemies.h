@@ -11,9 +11,8 @@ protected:
     float Y;
 public:
     Enemies();
-    virtual void onCollide(Player& player) = 0;
-    void render();
-    void randomizeEnemies();
+    virtual void render(RenderWindow* window) = 0;
+    virtual void randomizeEnemies(int score) = 0;
     ~Enemies();
 };
 

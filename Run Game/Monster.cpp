@@ -14,14 +14,23 @@ Monster::Monster(){
     monster.setScale(scaleX, scaleY);  //Apply the scale to resize the sprite
 }
 
-void Monster::onCollide(Player& player){
-    //if playerPos == monster pos
-    //gameOver GameOver
-    //GameOver.render(player);
+void Monster::randomizeEnemies(int score){
+    // Generate a new monster position based on score
+    if (score % 1000 == 0) {
+        X = rand() % 420;  // Randomize X position
+        Y = rand() % 20;   // Randomize Y position
+
+        // Assign random position to monster
+        monster.setPosition(X, Y);
+    }
 }
 
-void Monster::randomizeEnemies(){}
+void Monster::render(RenderWindow* window){
+    window->draw(monster); 
+}
 
-void Monster::render(){}
+Sprite Monster::getMonster(){
+    return monster;
+}
 
 Monster::~Monster(){}

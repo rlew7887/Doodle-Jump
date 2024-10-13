@@ -4,6 +4,7 @@
 
 #include "Level2.h"
 #include "Rocket.h"
+#include "Monster.h"
 #include <SFML/Graphics.hpp>
 
 
@@ -13,6 +14,7 @@ class Rocket; // forward declaration
 class Level3 : public Level2 {
    private:
        Rocket* rocket;
+       Monster* monster;
 
 
    public:
@@ -20,6 +22,7 @@ class Level3 : public Level2 {
        void setupLevel(); 
        void renderLevel3(RenderWindow* window);
        Rocket* get_Rocket();
+       Monster* get_Monster();
        ~Level3();
 };
 

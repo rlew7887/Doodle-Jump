@@ -7,6 +7,7 @@
 #include "NormalPlat.h"
 #include "BrokenPlat.h"
 #include "gameOver.h"
+#include "Monster.h"
 #include "Level1.h"
 #include "Level2.h"
 #include "Level3.h"
@@ -14,6 +15,7 @@
 
 using namespace sf;
 
+class gameOver;
 
 class Player {
  private:
