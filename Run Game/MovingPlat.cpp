@@ -1,31 +1,28 @@
 #include "MovingPlat.h"
 
-MovingPlat::MovingPlat() : speed(100.0f), movingRight(true) {  
-   platform.setFillColor(Color::Yellow);  
-   generatePlatforms(3);  // Generate fewer moving platforms  
+MovingPlatform::MovingPlatform() : moveSpeed(100.0f), movingRight(true) {  
+   // Set initial position and bounds  
+   plat[0].x = 250;  
+   plat[0].y = 400;  
+   leftBound = plat[0].x - 100;  
+   rightBound = plat[0].x + 100;  
 }  
   
-void MovingPlat::update(float deltaTime) {  
-   for (int i = 0; i < 3; i++) {  
-      if (movingRight) {  
-        plat[i].x += speed * deltaTime;  
-        if (plat[i].x + 80 > 500) {  // Assuming window width is 500  
-           movingRight = false;  
-        }  
-      } else {  
-        plat[i].x -= speed * deltaTime;  
-        if (plat[i].x < 0) {  
-           movingRight = true;  
-        }  
+void MovingPlatform::update(float deltaTime) {  
+   if (movingRight) {  
+      plat[0].x += moveSpeed * deltaTime;  
+      if (plat[0].x >= rightBound) {  
+        movingRight = false;  
+      }  
+   } else {  
+      plat[0].x -= moveSpeed * deltaTime;  
+      if (plat[0].x <= leftBound) {  
+        movingRight = true;  
       }  
    }  
 }  
   
-void MovingPlat::render(RenderWindow* target) {  
-   for (int i = 0; i < 3; i++) {  
-      platform.setPosition(plat[i].x, plat[i].y);  
-      if (plat[i].x != 0 && plat[i].y != 0) {  
-        target->draw(platform);  
-      }  
-   }  
+void MovingPlatform::render(RenderWindow* target) {  
+   platform.setPosition(plat[0].x, plat[0].y);  
+   target->draw(platform);  
 }

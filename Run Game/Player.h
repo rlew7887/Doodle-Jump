@@ -1,6 +1,7 @@
 #ifndef PLAYER_H
 #define PLAYER_H
 
+
 #include <SFML/Graphics.hpp>
 #include "Platform.h"
 #include "NormalPlat.h"
@@ -10,43 +11,56 @@
 #include "Level2.h"
 #include "Level3.h"
 
+
 using namespace sf;
 
+
 class Player {
-  private:
-    sf::Sprite defaultPlayer;
-    sf::Texture sharkPlayer;
-    bool onPlatform;
-    Font font;
-    int score;
-    float velocity;
-    bool blackholeActive;
-    float scaleX;
-    float scaleY;
-    int scale_count;
+ private:
+   sf::Sprite defaultPlayer;
+   sf::Texture sharkPlayer;
+   bool onPlatform;
+   Font font;
+   int score;
+   float velocity;
+   bool blackholeActive;
+   float scaleX;
+   float scaleY;
+   int scale_count;
 
-    //gameOver gameOver;
 
-  public:  
-    Player();
+   //gameOver gameOver;
 
-    void moveLeft(float FPS);
 
-    void moveRight(float FPS);
+ public: 
+   Player();
 
-    void jump(float& velocity, float FPS, Platform& platform, BrokenPlat& brokenPlatform);
 
-    int getScore();
+   void moveLeft(float FPS);
 
-    void render();
-    void incrementScore(int amount);
 
-    bool getOnPlatform();
+   void moveRight(float FPS);
 
-    Vector2f get_Position();
 
-    ~Player() {};
+   void jump(float& velocity, float FPS, Platform& platform, BrokenPlat& brokenPlatform);
+
+
+   int getScore();
+
+
+   void render();
+
+
+   bool getOnPlatform();
+
+
+   Vector2f get_Position();
+
+
+   ~Player() {};
+
 
 };
+
 
 #endif
