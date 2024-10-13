@@ -8,12 +8,12 @@ BrokenPlat::BrokenPlat() {
    // Generate a platform at player spawn position
    plat[0].x = 250;
    plat[0].y = 800;
-   generatePlatforms(3);
+   generatePlatforms(2);
 }  
 
 
 void BrokenPlat::render(RenderWindow* target) {
-    for (int i = 0; i < 3; i++) {
+    for (int i = 0; i < 2; i++) {
         brokenPlat.setPosition(plat[i].x, plat[i].y);
         if (plat[i].x != 0 && plat[i].y != 0) {
                 target->draw(brokenPlat); 
