@@ -7,6 +7,7 @@
 using namespace sf;
 
 class Player;
+class HighScore;
 
 class GameOver{
   protected:
@@ -16,6 +17,7 @@ class GameOver{
     Button* playAgainBTN;
     Button* homeBTN;
     Button* LeaderboardBTN;
+    HighScore* highscore;
   public:  
     GameOver(); //default constructor
     void playAgain();

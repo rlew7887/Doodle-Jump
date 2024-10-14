@@ -3,6 +3,7 @@
 #include <iostream>
 
 GameOver::GameOver():score(score){
+    highscore = new HighScore();
     font.loadFromFile("./SkeletonFont.ttf"); // load font file
 
     // Check if successfully loaded
@@ -56,15 +57,24 @@ void GameOver::render(Player& player){
     title.setCharacterSize(100); //set the character size
     title.setFillColor(Color::Black); //set the color
     title.setStyle(Text::Bold); //set the text style
-    title.setPosition(120,90);
+    title.setPosition(120,70);
 
     Text scoreText;
     scoreText.setFont(this->font); 
     scoreText.setCharacterSize(35); 
     scoreText.setFillColor(Color::Black);
     scoreText.setStyle(Text::Bold);
-    scoreText.setPosition(190,200);
+    scoreText.setPosition(190,180);
     int score = player.getScore();
+    highscore->addScore(score); //Add new score to text file
+
+    Text bestScoreText;
+    bestScoreText.setFont(this->font); 
+    bestScoreText.setCharacterSize(35); 
+    bestScoreText.setFillColor(Color::Black);
+    bestScoreText.setStyle(Text::Bold);
+    bestScoreText.setPosition(190,240);
+    int bestScore = highscore->getTopScore(); 
 
     //Initialise buttons
     playAgain();
@@ -105,7 +115,7 @@ void GameOver::render(Player& player){
                     //when leaderboard button is pressed, render leaderboard
                     window.close();
                     HighScore highscore;
-                    highscore.displayTopScores(player);
+                    highscore.displayTopScores();
                     window.setPosition(Vector2i(windowPosX, windowPosY));
                 }
             }
@@ -114,6 +124,7 @@ void GameOver::render(Player& player){
         window.draw(bg); //draw background image
         window.draw(title);
         window.draw(scoreText); //Render the score
+        window.draw(bestScoreText);
 
         // Draw buttons
         playAgainBTN->render(&window);
@@ -122,12 +133,6 @@ void GameOver::render(Player& player){
         window.display();
     }
 }
-
-//     //Should know when to switch between levels 
-//     //if (score > 500){
-//     //  void render(level2)} ??
-//     //render background and score only
-// }
 
 GameOver::~GameOver(){
     delete playAgainBTN;

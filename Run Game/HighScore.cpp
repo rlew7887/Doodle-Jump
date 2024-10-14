@@ -86,9 +86,8 @@ void HighScore::readScoresFromFile(){
     infile.close();
 }
 
-void HighScore::displayTopScores(Player& player){
-    int score = player.getScore();
-    addScore(score);
+void HighScore::displayTopScores(){
+    readScoresFromFile();
 
     VideoMode desktop = VideoMode::getDesktopMode(); //Get device screen size
     RenderWindow window(VideoMode(500, 800), "Leaderboard");

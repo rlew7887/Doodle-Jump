@@ -105,8 +105,7 @@ void Home::displayGraphics() {
        //Transition to HighScores page when showLeaderBoard button is pressed
        if (showLeaderBoardBTN->getButtonState() == true) {
            window.close();
-           Player player;
-           highscore->displayTopScores(player);
+           highscore->displayTopScores();
        }
       
        // clear the window with black color

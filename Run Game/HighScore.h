@@ -5,8 +5,6 @@
 #include "Home.h"
 using namespace sf;
 
-class Player;
-
 class HighScore{
 protected:
     int* highScores;
@@ -22,7 +20,7 @@ public:
     void saveScoresToFile(int score); //Write highscores to txt file
     void saveSortedScores();
     void readScoresFromFile(); //Read highscores from txt file
-    void displayTopScores(Player& player);
+    void displayTopScores();
     ~HighScore();
 };
 
