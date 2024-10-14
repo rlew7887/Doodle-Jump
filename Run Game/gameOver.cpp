@@ -73,7 +73,7 @@ void GameOver::render(Player& player){
     bestScoreText.setCharacterSize(35); 
     bestScoreText.setFillColor(Color::Black);
     bestScoreText.setStyle(Text::Bold);
-    bestScoreText.setPosition(190,240);
+    bestScoreText.setPosition(190,220);
     int bestScore = highscore->getTopScore(); 
 
     //Initialise buttons
@@ -89,6 +89,7 @@ void GameOver::render(Player& player){
         }
 
         scoreText.setString("Score: " + std::to_string(score));
+        bestScoreText.setString("Best: " + std::to_string(bestScore));
 
         // Update button state according to mouse position
         playAgainBTN->updateButton(Vector2f(Mouse::getPosition(window).x, Mouse::getPosition(window).y));
