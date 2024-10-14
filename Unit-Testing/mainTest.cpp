@@ -35,7 +35,7 @@ int main () {
     Level3Test level3Test;
     level3Test.runTests();
 
-PlatformTest platformTest;
+    PlatformTest platformTest;
     platformTest.runTests();
 
     NormalPlatTest normalPlatTest;

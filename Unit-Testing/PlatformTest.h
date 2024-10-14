@@ -31,8 +31,7 @@ private:
 
         // check if getPlat returns correct values
         for (int i = 0; i < 10; i++) {
-            Vector2f position = platform.getPlat(i);
-            if (position.x < 0 || position.x > 420 || position.y < 0 || position.y > 800) {
+            if (platform.getPlat(i).x < 0 || platform.getPlat(i).x > 420 || platform.getPlat(i).y < 0 || platform.getPlat(i).y > 800) {
                 std::cout << "Platform getPlat test failed at index " << i << std::endl;
             }
         }

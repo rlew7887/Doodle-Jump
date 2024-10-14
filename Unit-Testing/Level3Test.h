@@ -27,7 +27,7 @@ class Level3Test {
         void testSetupLevel() {
             Level3 level;
             level.setupLevel();
-            if (level.get_Rocket() != nullptr) {
+            if (level.get_Rocket() == nullptr) {
                 cout << "Level3 setupLevel test failed!" << endl;
             }
         }

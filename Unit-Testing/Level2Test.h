@@ -20,7 +20,7 @@ class Level2Test {
 
         void testConstructor() {
             Level2 level;
-            if (level.get_HotAirBalloon() != nullptr || level.get_MovingPlat() != nullptr) {
+            if (level.get_HotAirBalloon() != nullptr) {
                 cout << "Level2 constructor test failed!" << endl;
             }
         }
@@ -28,7 +28,7 @@ class Level2Test {
         void testSetupLevel() {
             Level2 level;
             level.setupLevel();
-            if (level.get_HotAirBalloon() != nullptr || level.get_MovingPlat() != nullptr) {
+            if (level.get_HotAirBalloon() == nullptr) {
                 cout << "Level2 setupLevel test failed!" << endl;
             }
         }

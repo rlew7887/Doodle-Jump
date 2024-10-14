@@ -12,7 +12,6 @@ using namespace sf;
 
 class Level2 : public Level1 { 
    private: 
-       // MovingPlat* moving;
        HotAirBalloon* hotAirBalloon;
 
 
@@ -20,7 +19,6 @@ class Level2 : public Level1 {
    Level2(); 
    void setupLevel(); 
    void renderLevel2(RenderWindow* window); 
-   //    MovingPlat* get_MovingPlat(); 
    HotAirBalloon* get_HotAirBalloon(); 
    ~Level2(); 
 };

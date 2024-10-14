@@ -8,7 +8,6 @@ class NormalPlatTest {
 public:
     void runTests() {
         testConstructor();
-        testRender();
     }
 
 private:
@@ -16,17 +15,11 @@ private:
         NormalPlat normalPlatform;
 
         // assuming the normal platform generates some random positions
-        Vector2f position = normalPlatform.getPlat(0);
-        if (position.x < 0 || position.x > 420 || position.y < 0 || position.y > 800) {
+        if (normalPlatform.getPlat(0).x < 0 || normalPlatform.getPlat(0).x > 420 || normalPlatform.getPlat(0).y < 0 || normalPlatform.getPlat(0).y > 800) {
             std::cout << "NormalPlat constructor test failed!" << std::endl;
         }
     }
 
-    void testRender() {
-        NormalPlat normalPlatform;
-        // render test: this would be more complex with graphics, but check basic structure
-        std::cout << "NormalPlat render test passed (visual inspection needed)" << std::endl;
-    }
 };
 
 #endif

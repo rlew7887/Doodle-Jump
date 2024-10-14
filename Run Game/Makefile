@@ -2,9 +2,9 @@
 TARGET = game
 
 # source files
-SOURCES = main.cpp Home.cpp Button.cpp Player.cpp Platform.cpp NormalPlat.cpp BrokenPlat.cpp gameOver.cpp HighScore.cpp Level1.cpp Level2.cpp Level3.cpp PowerUps.cpp Boots.cpp HotAirBalloon.cpp Rocket.cpp Monster.cpp
+SOURCES = Home.cpp Button.cpp Player.cpp Platform.cpp NormalPlat.cpp BrokenPlat.cpp gameOver.cpp HighScore.cpp Level1.cpp Level2.cpp Level3.cpp PowerUps.cpp Boots.cpp HotAirBalloon.cpp Rocket.cpp Monster.cpp
 
-# SOURCES (With test files) = Home.cpp Button.cpp Player.cpp Platform.cpp NormalPlat.cpp BrokenPlat.cpp MovingPlat.cpp gameOver.cpp HighScore.cpp Level1.cpp Level2.cpp Level3.cpp PowerUps.cpp Boots.cpp HotAirBalloon.cpp Rocket.cpp PlayerTest.h HighScoreTest.h BootsTest.h HotAirBalloonTest.h RocketTest.h Level1Test.h Level2Test.h Level3Test.h mainTest.cpp
+# SOURCES (With test files) = PlayerTest.h HighScoreTest.h BootsTest.h HotAirBalloonTest.h RocketTest.h Level1Test.h Level2Test.h Level3Test.h NormalPlatTest.h BrokenPlatTest.h PlatformTest.h mainTest.cpp
 
 UNAME_S := $(shell uname -s)
 

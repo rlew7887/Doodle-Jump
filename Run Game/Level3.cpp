@@ -25,6 +25,6 @@ Monster* Level3::get_Monster() {return monster;}
 
 
 Level3::~Level3() {
-   //delete rocket;
-   //delete monster;
+   delete rocket;
+   delete monster;
 }
