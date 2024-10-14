@@ -6,6 +6,9 @@
 #include "Level1Test.h"
 #include "Level2Test.h"
 #include "Level3Test.h"
+#include "PlatformTest.h"
+#include "NormalPlatTest.h"
+#include "BrokenPlatTest.h"
 
 int main () {
     PlayerTest playerTest;
@@ -32,6 +35,14 @@ int main () {
     Level3Test level3Test;
     level3Test.runTests();
 
+PlatformTest platformTest;
+    platformTest.runTests();
+
+    NormalPlatTest normalPlatTest;
+    normalPlatTest.runTests();
+
+    BrokenPlatTest brokenPlatTest;
+    brokenPlatTest.runTests();
 
     return 0;
 }
