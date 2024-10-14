@@ -142,11 +142,9 @@ void Player::render() {
         Time elapsed = clock.restart();
         float deltaTime = elapsed.asSeconds();
 
-
         if (!blackholeActive) {
             this->score++;
             scoreText.setString(std::to_string(score));
-
 
             Event event;
             while (window.pollEvent(event)) {
@@ -154,7 +152,6 @@ void Player::render() {
                 if (event.type == Event::Closed)
                     window.close();
             }
-
 
             // Movement when specific keys are pressed
             if (Keyboard::isKeyPressed(Keyboard::Left) || Keyboard::isKeyPressed(Keyboard::A)) {
@@ -164,14 +161,12 @@ void Player::render() {
                 moveRight(deltaTime);
             }
 
-
             // Make the player reappear on the opposite side if they go off-screen
             if (defaultPlayer.getPosition().x >= 500) {
                 defaultPlayer.setPosition(0, defaultPlayer.getPosition().y);
             } else if (defaultPlayer.getPosition().x <= -70) {
                 defaultPlayer.setPosition(500, defaultPlayer.getPosition().y);
             }
-
 
             // When player falls out of screen
             if (onPlatform == false && defaultPlayer.getPosition().y >= 720) {
@@ -191,6 +186,9 @@ void Player::render() {
                 level1.get_Boots()->shiftDown(2,getScore());
                 level2.get_HotAirBalloon()->shiftDown(2,getScore());
                 level3.get_Rocket()->shiftDown(2,getScore());
+
+                //Shift monster down by 2 pixels
+                level3.get_Monster()->shiftDown(2);
             }
 
             // Reset powerups bool variables according to score
@@ -251,6 +249,7 @@ void Player::render() {
             level2.renderLevel2(&window); // render level 2 when score reaches 500
         }
         if (getScore() > 700) {
+            level3.get_Monster()->randomizeEnemies(getScore());
             level3.renderLevel3(&window); // Render level 3 when score reaches 700
             
             // Initialise temp player positions

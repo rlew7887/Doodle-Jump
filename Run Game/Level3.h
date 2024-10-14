@@ -9,6 +9,7 @@
 
 
 class Rocket; // forward declaration
+class Monster;
 
 
 class Level3 : public Level2 {
