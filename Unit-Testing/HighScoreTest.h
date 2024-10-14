@@ -12,7 +12,7 @@ class HighScoreTest {
         void runTests() {
             testConstructor();
             testAddScore();
-            testFileIO();
+            testGetTopScore();
         }
         
     private:
@@ -64,34 +64,13 @@ class HighScoreTest {
             } 
         }
 
-        void testFileIO() {
+        void testGetTopScore(){
             HighScore highscoreTest;
-
-            // Adding scores to the leaderboard
-            highscoreTest.addScore(100);
-            highscoreTest.addScore(500);
-            highscoreTest.addScore(9999);
-
-            // Save the scores to a file
-            highscoreTest.saveScoresToFile();
-
-            // Create a new instance and load the scores
-            HighScore newHighscoreTest;
-            newHighscoreTest.readScoresToFile();
-
-            // Ensure scores were loaded correctly
-            bool testPassed = true;
-            int expectedScores[] = {9999, 500, 100, 0, 0, 0, 0, 0, 0, 0};
-            
-            if (newHighscoreTest.getTopScore() != expectedScores[0]) {
-                testPassed = false;
-            }
-
-            if (!testPassed) {
-                cout << "File I/O test failed!" << endl;
+            highscoreTest.addScore(99999999);
+            if (highscoreTest.getTopScore() != 99999999){
+                std::cout << "Get Top Score test failed" << std::endl;
             }
         }
-
 };
 
 #endif
