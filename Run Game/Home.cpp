@@ -168,7 +168,7 @@ void Home::showTutorial() {
 
    // Set popup text
    tutorialText.setFont(this->font);
-   tutorialText.setString("\n                                     Tutorial \n Controls: Left and right arrow keys to move the character \n \n Progress through the game by jumping on the \n platforms. Collect power up tools \n by landing on them and see what they does! \n \n (Press X to exit)");
+   tutorialText.setString("\n                                     Tutorial \n Controls: Left and right arrow keys to move the character \n \n Progress through the game by jumping on the \n platforms. Collect power up tools \n by landing on them and avoid the monsters! \n \n (Press X to exit)");
    tutorialText.setFillColor(Color::Black);
    tutorialText.setCharacterSize(30);
 
