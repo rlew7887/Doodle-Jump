@@ -26,8 +26,8 @@ int main () {
     Level1Test level1Test;
     level1Test.runTests();
 
-    // Level2Test level2Test;
-    // level2Test.runTests();
+    Level2Test level2Test;
+    level2Test.runTests();
 
     Level3Test level3Test;
     level3Test.runTests();
