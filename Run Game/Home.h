@@ -1,6 +1,7 @@
 #ifndef HOME_H
 #define HOME_H
 #include <SFML/Graphics.hpp>
+#include <SFML/System.hpp>
 #include "Button.h"
 #include "Player.h"
 #include "HighScore.h"
@@ -32,6 +33,7 @@ class Home {
        void startGame();
        void showTutorial();
        void showLeaderBoard();
+       void showErrorMessage(RenderWindow& window);
        ~Home();
 };
 
