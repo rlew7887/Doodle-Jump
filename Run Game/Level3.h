@@ -7,17 +7,14 @@
 #include "Monster.h"
 #include <SFML/Graphics.hpp>
 
-
-class Rocket; // forward declaration
+// forward declaration
+class Rocket;
 class Monster;
-
 
 class Level3 : public Level2 {
    private:
        Rocket* rocket;
        Monster* monster;
-
-
    public:
        Level3();
        void setupLevel(); 

@@ -4,7 +4,7 @@
 
 GameOver::GameOver():score(score){
     highscore = new HighScore();
-    font.loadFromFile("./SkeletonFont.ttf"); // load font file
+    font.loadFromFile("./SkeletonFont.ttf"); // Load font file
 
     // Check if successfully loaded
     if (!font.loadFromFile("./SkeletonFont.ttf"))
@@ -26,7 +26,7 @@ void GameOver::Leaderboard(){
 }
 
 void GameOver::render(Player& player){
-    //Get device screen size
+    // Get device screen size
     VideoMode desktop = VideoMode::getDesktopMode();
     
     RenderWindow window(VideoMode(500, 800), "Game Over");
@@ -39,24 +39,24 @@ void GameOver::render(Player& player){
     background.loadFromFile("grid-bg.jpg");
 
     if (!background.loadFromFile("grid-bg.jpg")){
-        std::cout << "Failed to load" << std::endl; //Check whether image has loaded
+        std::cout << "Failed to load" << std::endl; // Check whether image has loaded
     }
 
     sf::Sprite bg(background);
-    sf::Vector2u windowSize = window.getSize(); //get window size
-    sf::Vector2u textureSize = background.getSize(); //get image size
+    sf::Vector2u windowSize = window.getSize(); // Get window size
+    sf::Vector2u textureSize = background.getSize(); // Get image size
 
-    //Calculate scale factors to make image fit to window
+    // Calculate scale factors to make image fit to window
     float scaleX = (1.0f * windowSize.x) / textureSize.x;
     float scaleY = (1.0f * windowSize.y) / textureSize.y;
-    bg.setScale(scaleX, scaleY); //scale the sprite
+    bg.setScale(scaleX, scaleY); // Scale the sprite
 
     Text title;
-    title.setFont(this->font); //set font
-    title.setString("Game Over!"); //set the string to display
-    title.setCharacterSize(100); //set the character size
-    title.setFillColor(Color::Black); //set the color
-    title.setStyle(Text::Bold); //set the text style
+    title.setFont(this->font);
+    title.setString("Game Over!"); 
+    title.setCharacterSize(100);
+    title.setFillColor(Color::Black);
+    title.setStyle(Text::Bold);
     title.setPosition(120,70);
 
     Text scoreText;
@@ -66,7 +66,7 @@ void GameOver::render(Player& player){
     scoreText.setStyle(Text::Bold);
     scoreText.setPosition(190,180);
     int score = player.getScore();
-    highscore->addScore(score); //Add new score to text file
+    highscore->addScore(score); // Add new score to text file
 
     Text bestScoreText;
     bestScoreText.setFont(this->font); 
@@ -99,21 +99,21 @@ void GameOver::render(Player& player){
         //Check if left mouse button is pressed
         if (event.type == sf::Event::MouseButtonPressed && event.mouseButton.button == sf::Mouse::Left) {
                 if (playAgainBTN->isMouseOver(Vector2f(Mouse::getPosition(window).x, Mouse::getPosition(window).y))) {
-                    //when play again button is pressed, render a new game
+                    // When play again button is pressed, render a new game
                     window.close();
                     Player newGame;
                     window.setPosition(Vector2i(windowPosX, windowPosY));
                     newGame.render();
                 }
                 if (homeBTN->isMouseOver(Vector2f(Mouse::getPosition(window).x, Mouse::getPosition(window).y))) {
-                    //when home button is pressed, render homescreen
+                    // When home button is pressed, render homescreen
                     window.close();
                     Home home;
                     window.setPosition(Vector2i(windowPosX, windowPosY));
                     home.displayGraphics();
                 }
                 if (LeaderboardBTN->isMouseOver(Vector2f(Mouse::getPosition(window).x, Mouse::getPosition(window).y))) {
-                    //when leaderboard button is pressed, render leaderboard
+                    // When leaderboard button is pressed, render leaderboard
                     window.close();
                     HighScore highscore;
                     highscore.displayTopScores();
@@ -122,9 +122,11 @@ void GameOver::render(Player& player){
             }
 
         window.clear();
-        window.draw(bg); //draw background image
+        window.draw(bg); // Draw background image
         window.draw(title);
-        window.draw(scoreText); //Render the score
+
+        // Render the scores
+        window.draw(scoreText);
         window.draw(bestScoreText);
 
         // Draw buttons

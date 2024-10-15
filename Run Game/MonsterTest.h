@@ -28,6 +28,8 @@ class MonsterTest{
             Monster testMonster;
             testMonster.randomizeEnemies(1000);
             Vector2f testPosition = testMonster.getMonster().getPosition();
+            
+            // Check if monster generates in valid position
             if (testPosition.x < 0 || testPosition.x > 420 || testPosition.y < 0 || testPosition.y > 20) {
                 cout << "Monster randomize enemies test failed!" << endl;
             }

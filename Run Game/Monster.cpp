@@ -1,29 +1,32 @@
 #include "Monster.h"
 
 Monster::Monster(){
-    //Initialize Monster
+    // Check whether image has loaded
     if (!fishMonster.loadFromFile("FishMonster.png")){
-        std::cout << "Failed to load" << std::endl; //Check whether image has loaded
+        std::cout << "Failed to load" << std::endl;
     }
     monster.setTexture(fishMonster);
+
+    // Initialize location to prevent glitching
     X = 100;
     Y = 10;
-    monster.setPosition(Vector2f(X, Y)); //Initialize location to prevent glitching
-    fishMonster.setSmooth(true); //smooths the outline
-    sf::Vector2u textureSize = fishMonster.getSize();  //Get the original texture size
-    float scaleX = 100.0f / textureSize.x;  //Calculate scale factor for width
-    float scaleY = 100.0f / textureSize.y;  //Calculate scale factor for height
-    monster.setScale(scaleX, scaleY);  //Apply the scale to resize the sprite
+    monster.setPosition(Vector2f(X, Y));
+
+    fishMonster.setSmooth(true); // Smooths the outline
+    sf::Vector2u textureSize = fishMonster.getSize();  // Get the original texture size
+    float scaleX = 100.0f / textureSize.x;  // Calculate scale factor for width
+    float scaleY = 100.0f / textureSize.y;  // Calculate scale factor for height
+    monster.setScale(scaleX, scaleY);  // Apply the scale to resize the sprite
 }
 
-void Monster::randomizeEnemies(int score){ //Put restrictions such as cannot appear on platforms
+void Monster::randomizeEnemies(int score){
     // Generate a new monster position based on score
-    if (score % 500 == 0) {
+    if (score % 1000 == 0) {
         bool validPos = false; //Initialize
         while (!validPos){
             int tempX = rand() % 420;  // Randomize X position
             int tempY = rand() % 20;   // Randomize Y position
-            if (X != 0 && Y != 0){
+            if (X > 0 && X <= 420 && Y > 0 && Y <= 20){
                 validPos = true;
             }
             else{validPos = false;}

@@ -38,26 +38,17 @@ class HighScoreTest {
             HighScore highscoreTest;
 
             // Adding scores to the leaderboard
-            highscoreTest.addScore(100);
-            highscoreTest.addScore(50);
-            highscoreTest.addScore(999);
-            highscoreTest.addScore(0);
-            highscoreTest.addScore(25);
-            highscoreTest.addScore(9999);
-            highscoreTest.addScore(250);
-            highscoreTest.addScore(75);
-            highscoreTest.addScore(500);
+            highscoreTest.saveScoresToFile(88888); // Second highest score
+            highscoreTest.saveScoresToFile(77777); // Third highest score
             highscoreTest.addScore(9999999); // Highest score
-            highscoreTest.addScore(10);
 
             // Check the sorted order of the top 10 scores
-            int expectedScores[] = {9999999, 9999, 999, 500, 250, 100, 75, 50, 25, 10};
+            int expectedScores[] = {9999999, 88888, 77777};
 
             bool testPassed = true;
-            if (highscoreTest.getTopScore() != expectedScores[0]) {
+            if (highscoreTest.getTopScore() != 9999999) { // Score should be sorted in descending order
                 testPassed = false;
             }
-            
 
             if (!testPassed) {
                 cout << "Add score test failed!" << endl;

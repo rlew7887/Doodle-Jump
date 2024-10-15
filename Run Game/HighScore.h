@@ -16,10 +16,10 @@ public:
     HighScore();
     void home();
     void addScore(int score);
-    int getTopScore(); //Get highest score from array
-    void saveScoresToFile(int score); //Write highscores to txt file
-    void saveSortedScores();
-    void readScoresFromFile(); //Read highscores from txt file
+    int getTopScore(); //Get highest score from array to display in gameOver
+    void saveScoresToFile(int score); //Append highscores to txt file
+    void saveSortedScores(); //Overwrite txt file with sorted scores
+    void readScoresFromFile();
     void displayTopScores();
     ~HighScore();
 };

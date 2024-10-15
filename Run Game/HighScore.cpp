@@ -7,7 +7,7 @@ using namespace std;
 
 HighScore::HighScore():capacity(10), size(0){
     highScores = new int[capacity]{0};
-    font.loadFromFile("./SkeletonFont.ttf"); // load font file
+    font.loadFromFile("./SkeletonFont.ttf"); // Load font file
 
     // Check if successfully loaded
     if (!font.loadFromFile("./SkeletonFont.ttf"))
@@ -20,7 +20,7 @@ void HighScore::home(){
     this->homeBTN = new Button(170,670,90,40,this->font,"Home",Color(199,214,255,200),Color(135,147,176,255),Color(98,115,140,200));
 }
 
-int HighScore::getTopScore(){ //Function to get highest score and display in gameOver?
+int HighScore::getTopScore(){
     return highScores[0];
 }
 
@@ -32,13 +32,10 @@ void HighScore::addScore(int score){
         highScores[size - 1] = score; // Replace the lowest score
     }
 
-    // Sort the scores in descending order using std::sort
     std::sort(highScores, highScores + size, std::greater<int>());
 
     // Ensure that the size doesn't exceed the capacity (10)
     size = min(size, capacity);
-
-    //Write sorted scores to file
     saveSortedScores();
 }
 
@@ -49,7 +46,7 @@ void HighScore::saveSortedScores(){
         cout << "Failed to open file for writing" << endl;
     }
 
-    // Write the top scores to the file
+    // Overwrite the top scores to the file
     for (int i = 0; i < size; ++i) {
         outfile << highScores[i] << "\n";
     }
@@ -57,21 +54,21 @@ void HighScore::saveSortedScores(){
     outfile.close();
 }
 
-void HighScore::saveScoresToFile(int score){ //Pass player object here instead of render() function
+void HighScore::saveScoresToFile(int score){
     // Open file in write mode
     ofstream outfile("HighScores.txt", ios::app);
     if (!outfile.is_open()) {
         cout << "Failed to open file for writing" << endl;
     }
 
-    // Writing the highscores to the file
+    // Append the highscores to the file
     outfile << score << "\n ";
     outfile.close();
 }
 
 void HighScore::readScoresFromFile(){
     size = 0;
-    //Open file in read mode
+    // Open file in read mode
     ifstream infile("HighScores.txt");
     if (!infile.is_open()) {
         cout << "Failed to open file for reading" << endl;
@@ -80,7 +77,7 @@ void HighScore::readScoresFromFile(){
     // Read the high scores from the file into the array
     int score;
     while (infile >> score && size < 10) {
-        highScores[size++] = score; //Append score to array
+        highScores[size++] = score;
     }
 
     infile.close();
