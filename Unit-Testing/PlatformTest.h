@@ -1,14 +1,19 @@
 #ifndef PLATFORMTEST_H
 #define PLATFORMTEST_H
 
+#include <SFML/Graphics.hpp>
 #include <iostream>
 #include "Platform.h"
+
+using namespace sf;
+using namespace std;
 
 class PlatformTest {
 public:
     void runTests() {
         testGeneratePlatforms();
-        testGetPlat();
+        testShiftDown();
+        testRender();
     }
 
 private:
@@ -16,23 +21,35 @@ private:
         Platform platform;
         platform.generatePlatforms(10);
 
-        //check if platforms have been generated correctly
-        for (int i = 0; i < 10; i++) {
-            auto pos = platform.getPlat(i);
-            if (pos.x < 0 || pos.x > 420 || pos.y < 0 || pos.y > 800) {
-                std::cout << "Platform generatePlatforms test failed at index " << i << std::endl;
+        //ensure that platforms are generated within valid screen bounds
+        for (int i = 0; i < 10; ++i) {
+            if (platform.plat[i].x < 0 || platform.plat[i].x > 420 ||
+                platform.plat[i].y < 0 || platform.plat[i].y > 800) {
+                cout << "Platform generate test failed!" << endl;
             }
         }
     }
 
-    void testGetPlat() {
+    void testShiftDown() {
         Platform platform;
-        platform.generatePlatforms(10);
+        platform.shiftDown(10.0f);
 
-        // check if getPlat returns correct values
-        for (int i = 0; i < 10; i++) {
-            if (platform.getPlat(i).x < 0 || platform.getPlat(i).x > 420 || platform.getPlat(i).y < 0 || platform.getPlat(i).y > 800) {
-                std::cout << "Platform getPlat test failed at index " << i << std::endl;
+        //ensure platforms are shifted down correctly
+        if (platform.plat[0].y != 810) {
+            cout << "Platform shift down test failed!" << endl;
+        }
+    }
+
+    void testRender() {
+        RenderWindow window(VideoMode(500, 800), "Platform Render Test");
+        Platform platform;
+        platform.render(&window);
+
+        //ensure platforms are rendered within valid screen bounds
+        for (int i = 0; i < 10; ++i) {
+            if (platform.plat[i].x < 0 || platform.plat[i].x > 420 ||
+                platform.plat[i].y < 0 || platform.plat[i].y > 800) {
+                cout << "Platform render test failed!" << endl;
             }
         }
     }
