@@ -11,7 +11,6 @@ class HighScore;
 
 class GameOver{
   protected:
-    //Player player;
     int score;
     Font font;
     Button* playAgainBTN;
@@ -19,12 +18,12 @@ class GameOver{
     Button* LeaderboardBTN;
     HighScore* highscore;
   public:  
-    GameOver(); //default constructor
+    GameOver();
     void playAgain();
     void home();
     void Leaderboard();
     void render(Player& player);
-    ~GameOver(); //destructor
+    ~GameOver();
 };
 
 #endif
