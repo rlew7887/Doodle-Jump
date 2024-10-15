@@ -26,7 +26,7 @@ void Monster::randomizeEnemies(int score){
         while (!validPos){
             int tempX = rand() % 420;  // Randomize X position
             int tempY = rand() % 20;   // Randomize Y position
-            if (X > 0 && X <= 420 && Y > 0 && Y <= 20){
+            if (X > 0 && Y > 0){
                 validPos = true;
             }
             else{validPos = false;}
