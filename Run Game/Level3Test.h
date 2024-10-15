@@ -19,7 +19,7 @@ class Level3Test {
 
         void testConstructor() {
             Level3 level;
-            if (level.get_Rocket() != nullptr) {
+            if (level.get_Rocket() != nullptr || level.get_Monster() != nullptr) {
                 cout << "Level3 constructor test failed!" << endl;
             }
         }
@@ -27,7 +27,7 @@ class Level3Test {
         void testSetupLevel() {
             Level3 level;
             level.setupLevel();
-            if (level.get_Rocket() == nullptr) {
+            if (level.get_Rocket() == nullptr || level.get_Monster() == nullptr) {
                 cout << "Level3 setupLevel test failed!" << endl;
             }
         }

@@ -1,7 +1,7 @@
 #include "Level3.h"
 
 
-Level3::Level3() : Level2::Level2(), rocket(nullptr) {}
+Level3::Level3() : Level2::Level2(), rocket(nullptr), monster(nullptr) {}
 
 
 void Level3::setupLevel() {
