@@ -68,7 +68,7 @@ void Home::displayGraphics() {
 
        // Initialise tutorial popup
        bool showPopup = false;
-
+       bool showError = false;
 
    while (window.isOpen())
    {
@@ -78,6 +78,14 @@ void Home::displayGraphics() {
            // "close requested" event: we close the window
            if (event.type == Event::Closed)
                window.close();
+                // Check for key presses when the tutorial popup is shown  
+        if (showPopup && event.type == Event::KeyPressed) {  
+           if (event.key.code == Keyboard::X) {  
+              showPopup = false;  
+           } else {  
+              showError = true;  
+           }  
+        } 
        }
 
 
@@ -91,6 +99,7 @@ void Home::displayGraphics() {
        // Set showPopup to true if tutorial button is pressed
        if (showTutorialBTN->getButtonState() == true) {
            showPopup = true;
+           showError = false;
        }
 
 
@@ -125,13 +134,13 @@ void Home::displayGraphics() {
        if (showPopup == true) {
            window.draw(tutorialPopup);
            window.draw(tutorialText);
-
-
-           // Quit the popup if 'x' is pressed
-           if (Keyboard::isKeyPressed(Keyboard::X)) {
-           showPopup = false;
            }
-       }
+
+            // Show error message if needed  
+      if (showError) {  
+        showErrorMessage(window);  
+        showError = false;  
+      }  
 
 
        // end the current frame
@@ -179,6 +188,30 @@ void Home::showTutorial() {
    );
 
 
+}
+void Home::showErrorMessage(RenderWindow& window) {  
+   RectangleShape errorBox(Vector2f(300, 100));  
+   errorBox.setFillColor(Color::White);  
+   errorBox.setOutlineThickness(2);  
+   errorBox.setOutlineColor(Color::Red);  
+   errorBox.setPosition(250, 250);  
+  
+   Text errorText;  
+   errorText.setFont(this->font);  
+   errorText.setString("Please press 'X' to exit");  
+   errorText.setCharacterSize(20);  
+   errorText.setFillColor(Color::Red);  
+   errorText.setPosition(  
+      errorBox.getPosition().x + (errorBox.getSize().x - errorText.getGlobalBounds().width) / 2,  
+      errorBox.getPosition().y + (errorBox.getSize().y - errorText.getGlobalBounds().height) / 2  
+   );  
+  
+   window.draw(errorBox);  
+   window.draw(errorText);  
+   window.display();  
+  
+   // Wait for a moment before closing the error message  
+   sf::sleep(sf::seconds(2));  
 }
 
 
