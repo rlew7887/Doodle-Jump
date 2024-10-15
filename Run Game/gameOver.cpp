@@ -139,4 +139,5 @@ GameOver::~GameOver(){
     delete playAgainBTN;
     delete homeBTN;
     delete LeaderboardBTN;
+    delete highscore;
 }
