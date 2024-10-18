@@ -1,5 +1,5 @@
-#include "MovingPlat.h"
-
+#include "MovingPlatform.h"  
+  
 MovingPlatform::MovingPlatform() : moveSpeed(100.0f), movingRight(true) {  
    // Set initial position and bounds  
    plat[0].x = 250;  
